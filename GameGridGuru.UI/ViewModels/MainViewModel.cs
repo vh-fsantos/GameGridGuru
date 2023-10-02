@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using CommunityToolkit.Maui.Views;
 using GameGridGuru.Infraestructure.Repositories;
 using GameGridGuru.UI.Abstractions.ViewModels;
 using GameGridGuru.UI.Views;
+using Microsoft.Maui.Controls;
 
 namespace GameGridGuru.UI.ViewModels;
 

@@ -1,4 +1,6 @@
-﻿namespace GameGridGuru.UI;
+﻿using Microsoft.Maui.Controls;
+
+namespace GameGridGuru.UI;
 
 public partial class App : Application
 {

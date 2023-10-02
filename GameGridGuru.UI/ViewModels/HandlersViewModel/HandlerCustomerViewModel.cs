@@ -1,6 +1,8 @@
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.UI.Abstractions.ViewModels;
+using Microsoft.Maui.Controls;
 
 namespace GameGridGuru.UI.ViewModels.HandlersViewModel;
 
@@ -13,7 +15,7 @@ public class HandlerCustomerViewModel : BaseViewModel, IHandlerViewModel
     public HandlerCustomerViewModel(MainViewModel mainViewModel, int customerId = 0)
     {
         _mainViewModel = mainViewModel;
-        // SetCustomerCommand = new AsyncRelayCommand(SetCustomer);
+        SetCustomerCommand = new Command(SetCustomer);
     }
 
     public ICommand SetCustomerCommand { get; set; }
@@ -37,13 +39,15 @@ public class HandlerCustomerViewModel : BaseViewModel, IHandlerViewModel
             OnPropertyChanged(nameof(CustomerPhoneNumber));
         }
     }
-    // private async Task SetCustomer()
-    // {
-    //     var customer = new Customer
-    //     {
-    //         Name = CustomerName,
-    //         PhoneNumber = CustomerPhoneNumber
-    //     };
-    //     await _mainViewModel.Repository.AddCustomerAsync(customer);
-    // }
+    
+    private async void SetCustomer()
+    {
+        var customer = new Customer
+        {
+            Name = CustomerName,
+            PhoneNumber = CustomerPhoneNumber
+        };
+        await _mainViewModel.Repository.AddCustomerAsync(customer);
+        var teste = await _mainViewModel.Repository.GetCustomersAsync();
+    }
 }

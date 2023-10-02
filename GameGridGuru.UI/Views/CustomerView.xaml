@@ -9,5 +9,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Text="Novo" Command="{Binding AddCustomerCommand}"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding Customers}"></ListView>
     </Grid>
 </ContentView>
