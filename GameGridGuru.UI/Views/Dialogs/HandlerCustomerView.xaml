@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="GameGridGuru.UI.Views.Dialogs.HandlerCustomerView"
+             HorizontalOptions="Center"
+             VerticalOptions="Center">
+    <VerticalStackLayout Padding="30" BackgroundColor="Black">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" 
+                   Padding="0,10"
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center"
+                   Text="Cadastro de Cliente" 
+                   FontSize="24"/>
+            <VerticalStackLayout Grid.Row="1" Padding="0,10" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" 
+                       Text="Nome do Cliente"/>
+                <Entry Placeholder="Digite o nome do cliente" Text="{Binding CustomerName}" />
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2" Padding="0,10" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                <Label HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" 
+                       Text="Telefone do Cliente"/>
+                <Entry Placeholder="Digite o telefone do cliente" Text="{Binding CustomerPhoneNumber}" />
+            </VerticalStackLayout>
+            <HorizontalStackLayout Grid.Row="3" Padding="0,10" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center">
+                <Button Text="Confirmar" Command="{Binding SetCustomerCommand}"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</mct:Popup>

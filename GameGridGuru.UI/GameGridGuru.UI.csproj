@@ -48,7 +48,18 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GameGridGuru.Infraestructure\GameGridGuru.Infraestructure.csproj" />
+      <ProjectReference Include="..\GameGridGuru.UI.Abstractions\GameGridGuru.UI.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>

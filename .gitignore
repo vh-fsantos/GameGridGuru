@@ -366,3 +366,5 @@ FodyWeavers.xsd
 .idea
 .vscode
 .DS_Store
+*.db-shm
+*.db-wal

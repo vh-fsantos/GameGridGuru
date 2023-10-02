@@ -1,7 +1,6 @@
-﻿using ObjCRuntime;
-using UIKit;
+﻿using UIKit;
 
-namespace MauiApp1;
+namespace GameGridGuru.UI;
 
 public class Program
 {
