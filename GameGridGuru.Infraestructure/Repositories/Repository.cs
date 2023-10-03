@@ -5,7 +5,7 @@ namespace GameGridGuru.Infraestructure.Repositories;
 
 public class Repository
 {
-    private readonly SqLiteDbContext _dbContext = new();
+    private readonly PostgresDbContext _dbContext = new();
     
     public async Task<bool> AddCustomerAsync(Customer customer)
     {
@@ -16,6 +16,8 @@ public class Repository
     
     public async Task<IEnumerable<Customer>> GetCustomersAsync()
     {
+        var tes3te = _dbContext.Database.GetDbConnection();
+        
         var teste = await _dbContext.Customers
             .ToListAsync();
         return await _dbContext.Customers

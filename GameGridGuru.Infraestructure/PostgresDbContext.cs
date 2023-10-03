@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameGridGuru.Infraestructure;
 
-public class SqLiteDbContext : DbContext
+public class PostgresDbContext : DbContext
 { 
     internal DbSet<Card> Cards { get; set; } = default!;
     internal DbSet<Court> Courts { get; set; } = default!;
@@ -14,5 +14,5 @@ public class SqLiteDbContext : DbContext
     internal DbSet<Reservation> Reservations { get; set; } = default!;
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("Data Source=GameGridGuru.db");
+        => options.UseNpgsql("Host=localhost:5432;Username=postgres;Password=EU141200;Database=GameGridGuru");
 }
