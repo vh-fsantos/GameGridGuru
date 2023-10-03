@@ -1,7 +1,12 @@
 using System.Collections.Generic;
+using AutoMapper;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using GameGridGuru.Infraestructure.Abstractions.Repositories;
 using GameGridGuru.Infraestructure.Repositories;
+using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
+using GameGridGuru.UI.Services;
 using GameGridGuru.UI.Views;
 using Microsoft.Maui.Controls;
 
@@ -12,21 +17,16 @@ public class MainViewModel : BaseViewModel
     private List<IContextViewModel> _menuItems;
     private IContextViewModel _selectedItem;
     private View _currentPage;
-    private readonly Page _mainPage;
 
-    public MainViewModel(Page mainPage)
+    public MainViewModel(IPopupService popupService, ICustomerRepository customerRepository, IProductRepository productRepository, IMapper mapper)
     {
         _menuItems = new List<IContextViewModel>
         {
-            new CustomerViewModel(this),
-            new ProductViewModel(this)
+            new CustomerViewModel(popupService, customerRepository, mapper),
+            new ProductViewModel(popupService, productRepository, mapper)
         };
-        
-        _mainPage = mainPage;
     }
-    
-    public Repository Repository = new();
-    
+
     public List<IContextViewModel> MenuItems
     {
         get => _menuItems;
@@ -73,10 +73,5 @@ public class MainViewModel : BaseViewModel
         }
         
         CurrentPage.BindingContext = viewModel; 
-    }
-
-    public void ShowPopup(Popup popup)
-    {
-        _mainPage.ShowPopup(popup);
     }
 }

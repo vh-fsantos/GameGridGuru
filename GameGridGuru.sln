@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Infraestructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Domain", "GameGridGuru.Domain\GameGridGuru.Domain.csproj", "{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Infraestructure.Abstractions", "GameGridGuru.Infraestructure.Abstractions\GameGridGuru.Infraestructure.Abstractions.csproj", "{B9B0988A-418C-4566-A877-6A8B9C587CE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Services", "GameGridGuru.Services\GameGridGuru.Services.csproj", "{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Services.Abstractions", "GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj", "{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +36,17 @@ Global
 		{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9B0988A-418C-4566-A877-6A8B9C587CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9B0988A-418C-4566-A877-6A8B9C587CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9B0988A-418C-4566-A877-6A8B9C587CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9B0988A-418C-4566-A877-6A8B9C587CE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

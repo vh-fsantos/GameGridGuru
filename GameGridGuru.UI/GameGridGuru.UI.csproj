@@ -48,17 +48,16 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="akgul.Maui.DataGrid" Version="2.0.0" />
         <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj" />
+      <ProjectReference Include="..\GameGridGuru.Services\GameGridGuru.Services.csproj" />
       <ProjectReference Include="..\GameGridGuru.Infraestructure\GameGridGuru.Infraestructure.csproj" />
       <ProjectReference Include="..\GameGridGuru.UI.Abstractions\GameGridGuru.UI.Abstractions.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>

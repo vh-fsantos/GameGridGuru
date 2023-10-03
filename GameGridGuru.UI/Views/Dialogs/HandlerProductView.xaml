@@ -3,9 +3,7 @@
 <mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
-             x:Class="GameGridGuru.UI.Views.Dialogs.HandlerCustomerView"
-             HorizontalOptions="Center"
-             VerticalOptions="Center">
+             x:Class="GameGridGuru.UI.Views.Dialogs.HandlerProductView">
     <VerticalStackLayout Padding="30" BackgroundColor="Black">
         <Grid>
             <Grid.RowDefinitions>
@@ -18,27 +16,27 @@
                    Padding="0,10"
                    HorizontalTextAlignment="Center" 
                    VerticalTextAlignment="Center"
-                   Text="Informações de Cliente" 
+                   Text="Informações de Produto" 
                    FontSize="24"/>
             <VerticalStackLayout Grid.Row="1" Padding="0,10" 
                                  HorizontalOptions="Center" 
                                  VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
-                       Text="Nome do Cliente"/>
-                <Entry Placeholder="Digite o nome do cliente" Text="{Binding CustomerName}" />
+                       Text="Nome do Produto"/>
+                <Entry Placeholder="Digite o nome do produto" Text="{Binding CustomerName}" />
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Padding="0,10" 
                                  HorizontalOptions="Center" 
                                  VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
-                       Text="Telefone do Cliente"/>
+                       Text="Valor do Produto"/>
                 <Entry Placeholder="Digite o telefone do cliente" Text="{Binding CustomerPhoneNumber}" />
             </VerticalStackLayout>
             <HorizontalStackLayout Grid.Row="3" Padding="0,10" 
-                                 HorizontalOptions="Center" 
-                                 VerticalOptions="Center">
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center">
                 <Button Text="Confirmar" Clicked="Button_OnClicked" />
             </HorizontalStackLayout>
         </Grid>

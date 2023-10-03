@@ -1,25 +1,34 @@
-using System.Threading.Tasks;
-using System.Windows.Input;
+using GameGridGuru.Domain.InputModel;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.UI.Abstractions.ViewModels;
-using Microsoft.Maui.Controls;
 
 namespace GameGridGuru.UI.ViewModels.HandlersViewModel;
 
 public class HandlerCustomerViewModel : BaseViewModel, IHandlerViewModel
 {
-    private readonly MainViewModel _mainViewModel;
     private string _customerName;
     private string _customerPhoneNumber;
+    private int _customerId;
+
+    public HandlerCustomerViewModel() { }
     
-    public HandlerCustomerViewModel(MainViewModel mainViewModel, int customerId = 0)
+    public HandlerCustomerViewModel(Customer customer)
     {
-        _mainViewModel = mainViewModel;
-        SetCustomerCommand = new Command(SetCustomer);
+        CustomerId = customer.Id;
+        CustomerName = customer.Name;
+        CustomerPhoneNumber = customer.PhoneNumber;
     }
 
-    public ICommand SetCustomerCommand { get; set; }
-
+    public int CustomerId
+    {
+        get => _customerId;
+        set
+        {
+            _customerId = value;
+            OnPropertyChanged(nameof(CustomerId));
+        }
+    }
+    
     public string CustomerName
     {
         get => _customerName;
@@ -38,16 +47,5 @@ public class HandlerCustomerViewModel : BaseViewModel, IHandlerViewModel
             _customerPhoneNumber = value;
             OnPropertyChanged(nameof(CustomerPhoneNumber));
         }
-    }
-    
-    private async void SetCustomer()
-    {
-        var customer = new Customer
-        {
-            Name = CustomerName,
-            PhoneNumber = CustomerPhoneNumber
-        };
-        await _mainViewModel.Repository.AddCustomerAsync(customer);
-        var teste = await _mainViewModel.Repository.GetCustomersAsync();
     }
 }

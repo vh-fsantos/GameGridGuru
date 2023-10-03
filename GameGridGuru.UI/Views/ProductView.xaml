@@ -2,11 +2,29 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GameGridGuru.UI.Views.ProductView">
-    <StackLayout>
-        <Label Text="{Binding Title}"/>
-        <Label Text="{Binding Title}"/>
-        <Label Text="{Binding Title}"/>
-        <Label Text="{Binding Title}"/>
-    </StackLayout>
+             x:Class="GameGridGuru.UI.Views.ProductView"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid">
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Text="Novo" Command="{Binding AddCustomerCommand}"/>
+        <dg:DataGrid Grid.Row="1" ItemsSource="{Binding Customers}" SelectionEnabled="True"
+                     SelectedItem="{Binding SelectedCustomer}" HeaderHeight="50" HeightRequest="500" Padding="10">
+            <dg:DataGrid.NoDataView>
+                <Label Text="Não há clientes cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
+            </dg:DataGrid.NoDataView>
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="Nome" PropertyName="Name" />
+                <dg:DataGridColumn Title="Telefone" PropertyName="PhoneNumber" />
+            </dg:DataGrid.Columns>
+            <dg:DataGrid.RowsBackgroundColorPalette>
+                <dg:PaletteCollection>
+                    <Color>#F2F2F2</Color>
+                    <Color>#FFFFFF</Color>
+                </dg:PaletteCollection>
+            </dg:DataGrid.RowsBackgroundColorPalette>
+        </dg:DataGrid>
+    </Grid>
 </ContentView>

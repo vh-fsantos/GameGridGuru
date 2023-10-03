@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+      <ProjectReference Include="..\GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-namespace GameGridGuru.Domain.Models;
+namespace GameGridGuru.Domain.InputModel;
 
-public class Product
+public class ProductInputModel
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
