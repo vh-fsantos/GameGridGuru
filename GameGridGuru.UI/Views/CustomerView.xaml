@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Text="Novo" Command="{Binding AddCustomerCommand}"/>
+        <Button Grid.Row="0" Text="Novo" HorizontalOptions="Start" Command="{Binding AddCustomerCommand}"/>
         <dg:DataGrid Grid.Row="1" ItemsSource="{Binding Customers}" SelectionEnabled="True"
                      SelectedItem="{Binding SelectedCustomer}" HeaderHeight="50" HeightRequest="500" Padding="10">
             <dg:DataGrid.NoDataView>

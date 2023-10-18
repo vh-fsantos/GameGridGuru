@@ -1,18 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.UI", "GameGridGuru.UI\GameGridGuru.UI.csproj", "{14D9C1B6-BB04-463E-A15B-C76A18640424}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.UI", "GameGridGuru.UI\GameGridGuru.UI.csproj", "{14D9C1B6-BB04-463E-A15B-C76A18640424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.UI.Abstractions", "GameGridGuru.UI.Abstractions\GameGridGuru.UI.Abstractions.csproj", "{75441419-3E29-4EDF-AD90-59B7FE9C891B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.UI.Abstractions", "GameGridGuru.UI.Abstractions\GameGridGuru.UI.Abstractions.csproj", "{75441419-3E29-4EDF-AD90-59B7FE9C891B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Infraestructure", "GameGridGuru.Infraestructure\GameGridGuru.Infraestructure.csproj", "{1E944498-150A-4767-B882-0FDB24572FF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.Infraestructure", "GameGridGuru.Infraestructure\GameGridGuru.Infraestructure.csproj", "{1E944498-150A-4767-B882-0FDB24572FF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Domain", "GameGridGuru.Domain\GameGridGuru.Domain.csproj", "{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.Domain", "GameGridGuru.Domain\GameGridGuru.Domain.csproj", "{BFB1E7BD-24F2-48F1-A2FF-9643EE743134}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Infraestructure.Abstractions", "GameGridGuru.Infraestructure.Abstractions\GameGridGuru.Infraestructure.Abstractions.csproj", "{B9B0988A-418C-4566-A877-6A8B9C587CE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.Infraestructure.Abstractions", "GameGridGuru.Infraestructure.Abstractions\GameGridGuru.Infraestructure.Abstractions.csproj", "{B9B0988A-418C-4566-A877-6A8B9C587CE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Services", "GameGridGuru.Services\GameGridGuru.Services.csproj", "{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.Services", "GameGridGuru.Services\GameGridGuru.Services.csproj", "{8A1781F8-A10C-49DC-9EFA-AFF522CEC344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGridGuru.Services.Abstractions", "GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj", "{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameGridGuru.Services.Abstractions", "GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj", "{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +25,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{14D9C1B6-BB04-463E-A15B-C76A18640424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14D9C1B6-BB04-463E-A15B-C76A18640424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D9C1B6-BB04-463E-A15B-C76A18640424}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{14D9C1B6-BB04-463E-A15B-C76A18640424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D9C1B6-BB04-463E-A15B-C76A18640424}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75441419-3E29-4EDF-AD90-59B7FE9C891B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -48,5 +52,8 @@ Global
 		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{839DCA6F-79CF-4775-B7C4-8C5C0F8ABA23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
