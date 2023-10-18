@@ -4,7 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameGridGuru.UI.Views.CustomerView"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid">
-    <Grid Padding="10">
+    <Grid 
+        Padding="10"
+        Background="#6e6e6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -16,7 +18,7 @@
             BackgroundColor="#00B346"
             TextColor="#fff"
             CornerRadius="15"
-            Padding="10"
+            Padding="0 20"
             Command="{Binding AddCustomerCommand}"/>
         <dg:DataGrid Grid.Row="1" 
                      ItemsSource="{Binding Customers}" 
@@ -24,7 +26,10 @@
                      SelectedItem="{Binding SelectedCustomer}" 
                      HeaderHeight="50" 
                      HeightRequest="500" 
-                     Padding="10">
+                     Margin="20 0"
+                     BorderColor="DarkGrey"
+                     BorderThickness="1">
+            
             <dg:DataGrid.NoDataView>
                 <Label Text="Não há clientes cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
             </dg:DataGrid.NoDataView>
