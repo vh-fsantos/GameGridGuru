@@ -27,7 +27,11 @@ public class CustomerViewModel : BaseViewModel, IContextViewModel
         
         _ = LoadCustomersAsync();
     }
-    
+
+    public CustomerViewModel()
+    {
+    }
+
     private ICustomerRepository CustomerRepository  { get; }
     private IPopupService PopupService { get; }
     private IMapper Mapper { get; }
