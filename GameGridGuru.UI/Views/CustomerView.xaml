@@ -31,8 +31,7 @@
                      ItemsSource="{Binding Customers}" 
                      SelectionEnabled="True"
                      SelectedItem="{Binding SelectedCustomer}" 
-                     HeaderHeight="50" 
-                     
+                     HeaderHeight="50"
                      BorderColor="LightGrey"
                      BorderThickness="1">
 
