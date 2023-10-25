@@ -8,7 +8,5 @@ public partial class CustomerView : ContentView
     {
         InitializeComponent();
 
-        // Configurar o contexto de dados (ViewModel) para a página
-        this.BindingContext = new CustomerViewModel();
     }
 }

@@ -4,8 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameGridGuru.UI.Views.CustomerView"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid">
+    
     <Grid Padding="10"
-          Background="#6e6e6">
+          Background="#e8e4e4">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,12 +14,12 @@
         </Grid.RowDefinitions>
         
         <Button Grid.Row="0" 
-                Text="Cadastro de cliente" 
+                Text="Cadastro de cliente"
                 HorizontalOptions="Start" 
                 BackgroundColor="#00B346"
                 TextColor="#fff"
                 CornerRadius="15"
-                Margin="0 0 20 0"
+                Margin="0, 0, 0, 20"
                 Command="{Binding AddCustomerCommand}"/>
         
         <dg:DataGrid Grid.Row="1" 
