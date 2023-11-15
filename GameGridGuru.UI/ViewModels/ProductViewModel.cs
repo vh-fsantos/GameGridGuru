@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using AutoMapper;
 using GameGridGuru.Domain.InputModel;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.Infraestructure.Abstractions.Repositories;
@@ -16,19 +15,17 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
     private ObservableCollection<Product> _products;
     private Product _selectedProduct;
     
-    public ProductViewModel(IPopupService popupService, IProductRepository customerRepository, IMapper mapper)
+    public ProductViewModel(IPopupService popupService, IProductRepository customerRepository)
     {
         AddProductCommand = new Command(AddProduct);
         ProductRepository = customerRepository;
         PopupService = popupService;
-        Mapper = mapper;
         
         _ = LoadProductsAsync();
     }
     
     private IProductRepository ProductRepository  { get; }
     private IPopupService PopupService { get; }
-    private IMapper Mapper { get; }
     public string Title => "Produtos";
     public ICommand AddProductCommand { get; set; }
 
@@ -68,7 +65,6 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
             return;
 
         var product = new Product();
-        Mapper.Map(productInputModel, product);
         if (await ProductRepository.AddProductAsync(product))
             Products.Add(product);
     }
@@ -85,7 +81,6 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
         if (customerInfo is not ProductInputModel customerInputModel) 
             return;
         
-        Mapper.Map(customerInputModel, SelectedProduct);
         if (await ProductRepository.EditProductAsync(SelectedProduct))
         {
             await LoadProductsAsync();

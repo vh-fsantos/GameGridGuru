@@ -1,8 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using CommunityToolkit.Maui.Views;
 using GameGridGuru.UI.Abstractions.Services;
-using Microsoft.Maui.Controls;
 
 namespace GameGridGuru.UI.Services;
 

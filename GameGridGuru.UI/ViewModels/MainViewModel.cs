@@ -1,14 +1,8 @@
-using System.Collections.Generic;
-using AutoMapper;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
 using GameGridGuru.Infraestructure.Abstractions.Repositories;
-using GameGridGuru.Infraestructure.Repositories;
+using GameGridGuru.Services.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
-using GameGridGuru.UI.Services;
 using GameGridGuru.UI.Views;
-using Microsoft.Maui.Controls;
 
 namespace GameGridGuru.UI.ViewModels;
 
@@ -18,12 +12,12 @@ public class MainViewModel : BaseViewModel
     private IContextViewModel _selectedItem;
     private View _currentPage;
 
-    public MainViewModel(IPopupService popupService, ICustomerRepository customerRepository, IProductRepository productRepository, IMapper mapper)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductRepository productRepository)
     {
         _menuItems = new List<IContextViewModel>
         {
-            new CustomerViewModel(popupService, customerRepository, mapper),
-            new ProductViewModel(popupService, productRepository, mapper)
+            new CustomerViewModel(popupService, customerService),
+            new ProductViewModel(popupService, productRepository)
         };
     }
 

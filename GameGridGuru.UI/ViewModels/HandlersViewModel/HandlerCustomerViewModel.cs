@@ -48,4 +48,12 @@ public class HandlerCustomerViewModel : BaseViewModel, IHandlerViewModel
             OnPropertyChanged(nameof(CustomerPhoneNumber));
         }
     }
+
+    public Customer GetCustomer() 
+        => new()
+        {
+            Id = CustomerId,
+            Name = CustomerName,
+            PhoneNumber = CustomerPhoneNumber
+        };
 }

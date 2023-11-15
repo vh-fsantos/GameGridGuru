@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GameGridGuru.Infraestructure.Abstractions\GameGridGuru.Infraestructure.Abstractions.csproj" />
       <ProjectReference Include="..\GameGridGuru.Services.Abstractions\GameGridGuru.Services.Abstractions.csproj" />
     </ItemGroup>
 

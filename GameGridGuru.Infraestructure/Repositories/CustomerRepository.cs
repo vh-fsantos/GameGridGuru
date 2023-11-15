@@ -15,28 +15,53 @@ public class CustomerRepository : ICustomerRepository
     
     public async Task<bool> AddCustomerAsync(Customer customer)
     {
-        await _dbContext.Customers.AddAsync(customer);
-        await _dbContext.SaveChangesAsync();
-        return true;
+        try
+        {
+            await GetDbSet().AddAsync(customer);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Add Customer Async - {exception.Message}");
+            return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
+        }
     }
 
     public async Task<bool> EditCustomerAsync(Customer customer)
     {
         try
         {
-            _dbContext.Customers.Update(customer);
+            GetDbSet().Update(customer);
             await _dbContext.SaveChangesAsync();
             return true;
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
+            Console.WriteLine($"Edit Customer Async - {exception.Message}");
             return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
         }
     }
 
     public async Task<IEnumerable<Customer>> GetCustomersAsync() 
-        => await _dbContext.Customers.AsNoTracking().OrderBy(customer => customer.Id).ToListAsync();
+        => await GetDbSet().AsNoTracking().OrderBy(customer => customer.Id).ToListAsync();
 
     public async Task<Customer?> GetCustomerById(int id)
-        => await _dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(customer => customer.Id == id);
+        => await GetDbSet().AsNoTracking().FirstOrDefaultAsync(customer => customer.Id == id);
+
+    private DbSet<Customer> GetDbSet()
+        => _dbContext.Customers;
+
+    private void ClearChangeTracker()
+    {
+        _dbContext.ChangeTracker.Clear();
+    }
 }

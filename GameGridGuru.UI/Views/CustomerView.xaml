@@ -27,20 +27,20 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 10,10,10,10" VerticalOptions="Fill"
                 HorizontalOptions="FillAndExpand">
-            <dg:DataGrid  
-                     ItemsSource="{Binding Customers}" 
-                     SelectionEnabled="True"
-                     SelectedItem="{Binding SelectedCustomer}" 
-                     HeaderHeight="50"
-                     BorderColor="LightGrey"
-                     BorderThickness="1">
-
+            <dg:DataGrid  ItemsSource="{Binding Customers}" 
+                          SelectionEnabled="True"
+                          SelectedItem="{Binding SelectedCustomer}" 
+                          HeaderHeight="50"
+                          HeightRequest="500"
+                          BorderColor="LightGrey"
+                          BorderThickness="1">
+                
                 <dg:DataGrid.NoDataView>
                     <Label Text="Não há clientes cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
                 </dg:DataGrid.NoDataView>
-
+                
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Nome" PropertyName="Name" />
+                    <dg:DataGridColumn Title="Nome" PropertyName="Name"/>
                     <dg:DataGridColumn Title="Telefone" PropertyName="PhoneNumber" />
                 </dg:DataGrid.Columns>
 
@@ -50,6 +50,11 @@
                         <Color>#FFFFFF</Color>
                     </dg:PaletteCollection>
                 </dg:DataGrid.RowsBackgroundColorPalette>
+                
+                <dg:DataGrid.GestureRecognizers>
+                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Clicked="ClickGestureRecognizer_OnClicked" />
+                    <!-- <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Tapped="TapGestureRecognizer_OnTapped" /> -->
+                </dg:DataGrid.GestureRecognizers>
             </dg:DataGrid>
         </Border>
     </Grid>
