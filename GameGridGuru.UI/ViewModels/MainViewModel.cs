@@ -8,17 +8,22 @@ namespace GameGridGuru.UI.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
+    private readonly Timer _timer;
     private List<IContextViewModel> _menuItems;
     private IContextViewModel _selectedItem;
     private View _currentPage;
+    private string _currentTime;
 
-    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService)
     {
         _menuItems = new List<IContextViewModel>
         {
+            new CourtViewModel(popupService, courtService),
             new CustomerViewModel(popupService, customerService),
             new ProductViewModel(popupService, productService)
         };
+
+        _timer = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     public List<IContextViewModel> MenuItems
@@ -51,6 +56,19 @@ public class MainViewModel : BaseViewModel
             OnPropertyChanged(nameof(CurrentPage));
         }
     }
+
+    public string CurrentTime
+    {
+        get => _currentTime;
+        set
+        {
+            if (_currentTime != value)
+            {
+                _currentTime = value;
+                OnPropertyChanged(nameof(CurrentTime));
+            }
+        }
+    }
     
     private void SetCurrentPage(IContextViewModel viewModel)
     {
@@ -67,5 +85,13 @@ public class MainViewModel : BaseViewModel
         }
         
         CurrentPage.BindingContext = viewModel; 
+    }
+
+    private async void UpdateTime()
+    {
+        await MainThread.InvokeOnMainThreadAsync(() =>
+        {
+            CurrentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+        });
     }
 }

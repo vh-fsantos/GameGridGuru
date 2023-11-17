@@ -15,16 +15,15 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
     private Product _selectedProduct;
     private bool _isProductSelected;
     
-    public ProductViewModel(IPopupService popupService, IProductService productService)
+    public ProductViewModel(IPopupService popupService, IProductService productService) : base(popupService)
     {
         ProductService = productService;
-        PopupService = popupService;
         
         _ = LoadProductsAsync();
     }
     
     private IProductService ProductService  { get; }
-    private IPopupService PopupService { get; }
+    
     public string Title => "Produtos";
 
     public ObservableCollection<Product> Products
@@ -68,7 +67,7 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerProductViewModel();
         var view = new HandlerProductView { BindingContext = context };
-        var productInfo = await PopupService.ShowPopupAsync(view);
+        var productInfo = await PopupService!.ShowPopupAsync(view);
 
         if (productInfo is not Product product) 
             return;
@@ -85,7 +84,7 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerProductViewModel(SelectedProduct);
         var view = new HandlerProductView { BindingContext = context };
-        var productInfo = await PopupService.ShowPopupAsync(view);
+        var productInfo = await PopupService!.ShowPopupAsync(view);
 
         if (productInfo is not Product product) 
             return;
@@ -97,7 +96,7 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
     [RelayCommand]
     private async Task DeleteProduct()
     {
-        if (SelectedProduct == null || !await PopupService.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este produto, tem certeza de que deseja continuar?")) 
+        if (SelectedProduct == null || !await PopupService!.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este produto, tem certeza de que deseja continuar?")) 
             return;
 
         if (await ProductService.DeleteEntityAsync(SelectedProduct))

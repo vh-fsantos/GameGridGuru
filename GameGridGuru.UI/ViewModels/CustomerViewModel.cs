@@ -15,16 +15,15 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
     private Customer _selectedCustomer;
     private bool _isCustomerSelected;
     
-    public CustomerViewModel(IPopupService popupService, ICustomerService customerService)
+    public CustomerViewModel(IPopupService popupService, ICustomerService customerService) : base(popupService)
     {
         CustomerService = customerService;
-        PopupService = popupService;
         
         _ = LoadCustomersAsync();
     }
     
     private ICustomerService CustomerService  { get; }
-    private IPopupService PopupService { get; }
+    
     public string Title => "Clientes";
 
     public ObservableCollection<Customer> Customers
@@ -68,7 +67,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerCustomerViewModel();
         var view = new HandlerCustomerView { BindingContext = context };
-        var customerInfo = await PopupService.ShowPopupAsync(view);
+        var customerInfo = await PopupService!.ShowPopupAsync(view);
 
         if (customerInfo is not Customer customer) 
             return;
@@ -85,7 +84,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerCustomerViewModel(SelectedCustomer);
         var view = new HandlerCustomerView { BindingContext = context };
-        var customerInfo = await PopupService.ShowPopupAsync(view);
+        var customerInfo = await PopupService!.ShowPopupAsync(view);
 
         if (customerInfo is not Customer customer) 
             return;
@@ -97,7 +96,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
     [RelayCommand]
     private async Task DeleteCustomer()
     {
-        if (SelectedCustomer == null || !await PopupService.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este cliente, tem certeza de que deseja continuar?")) 
+        if (SelectedCustomer == null || !await PopupService!.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este cliente, tem certeza de que deseja continuar?")) 
             return;
 
         if (await CustomerService.DeleteEntityAsync(SelectedCustomer))

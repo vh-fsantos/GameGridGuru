@@ -20,6 +20,7 @@ public static class InjectServices
     {
         services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<ICourtRepository, CourtRepository>();
     }
     
     public static void InjectApplicationServices(this IServiceCollection services)
@@ -27,5 +28,6 @@ public static class InjectServices
         services.AddTransient<IPopupService, PopupService>();
         services.AddTransient<ICustomerService, CustomerService>();
         services.AddTransient<IProductService, ProductService>();
+        services.AddTransient<ICourtService, CourtService>();
     }
 }
