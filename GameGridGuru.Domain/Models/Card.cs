@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameGridGuru.Domain.Models;
 
-public class Card
+public class Card : EntityId
 {
-    public int Id { get; set; }
     public float TotalValue { get; set; }
     public List<Product>? Products { get; set; }
     [ForeignKey("Card_Reservation_Fk1")]

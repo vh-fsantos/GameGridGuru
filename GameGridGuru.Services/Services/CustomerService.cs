@@ -14,17 +14,17 @@ public class CustomerService : ICustomerService
     }
     
     public async Task<bool> AddCustomerAsync(Customer customer) 
-        => await _customerRepository.AddCustomerAsync(customer);
+        => await _customerRepository.AddAsync(customer);
 
     public async Task<IEnumerable<Customer>> GetCustomersAsync() 
-        => await _customerRepository.GetCustomersAsync();
+        => await _customerRepository.GetAllAsync();
 
     public async Task<bool> EditCustomerAsync(Customer customer)
-        => await _customerRepository.EditCustomerAsync(customer);
+        => await _customerRepository.EditAsync(customer);
     
     public async Task<bool> DeleteCustomerAsync(Customer customer)
-        => await _customerRepository.DeleteCustomerAsync(customer);
+        => await _customerRepository.DeleteAsync(customer);
 
     public async Task<Customer?> GetCustomerById(int id)
-        => await _customerRepository.GetCustomerById(id);
+        => await _customerRepository.GetEntityById(id);
 }

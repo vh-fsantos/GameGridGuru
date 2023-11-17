@@ -1,4 +1,3 @@
-using GameGridGuru.Domain.InputModel;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.UI.Abstractions.ViewModels;
 

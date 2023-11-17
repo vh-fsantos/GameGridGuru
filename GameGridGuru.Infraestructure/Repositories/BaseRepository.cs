@@ -1,0 +1,85 @@
+using GameGridGuru.Domain.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace GameGridGuru.Infraestructure.Repositories;
+
+public abstract class BaseRepository<T> where T : EntityId
+{
+    private readonly PostgresDbContext _dbContext;
+    
+    protected BaseRepository(PostgresDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+
+    public virtual async Task<bool> AddAsync(T entity)
+    {
+        try
+        {
+            await GetDbSet().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Add Entity Type {nameof(T)} - {exception.Message}");
+            return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
+        }
+    }
+    
+    public async Task<bool> EditAsync(T entity)
+    {
+        try
+        {
+            GetDbSet().Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Edit Entity Type {nameof(T)} - {exception.Message}");
+            return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
+        }
+    }
+    
+    public async Task<bool> DeleteAsync(T entity)
+    {
+        try
+        {
+            GetDbSet().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Remove Entity Type {nameof(T)}  - {exception.Message}");
+            return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
+        }
+    }
+    
+    public async Task<IEnumerable<T>> GetAllAsync() 
+        => await GetDbSet().AsNoTracking().OrderBy(entity => entity.Id).ToListAsync();
+
+    public async Task<T?> GetEntityById(int id)
+        => await GetDbSet().AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+    
+    protected DbSet<T> GetDbSet() 
+        => _dbContext.Set<T>();
+    
+    private void ClearChangeTracker()
+    {
+        _dbContext.ChangeTracker.Clear();
+    }
+}

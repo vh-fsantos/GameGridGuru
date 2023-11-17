@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using GameGridGuru.Domain.InputModel;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.Infraestructure.Abstractions.Repositories;
 using GameGridGuru.UI.Abstractions.Services;
@@ -61,7 +60,7 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
         var view = new HandlerProductView { BindingContext = context };
         var customerInfo = await PopupService.ShowPopupAsync(view);
 
-        if (customerInfo is not ProductInputModel productInputModel) 
+        if (customerInfo is not Product productInputModel) 
             return;
 
         var product = new Product();
@@ -78,7 +77,7 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
         var view = new HandlerProductView { BindingContext = context };
         var customerInfo = await PopupService.ShowPopupAsync(view);
 
-        if (customerInfo is not ProductInputModel customerInputModel) 
+        if (customerInfo is not Product customerInputModel) 
             return;
         
         if (await ProductRepository.EditProductAsync(SelectedProduct))
