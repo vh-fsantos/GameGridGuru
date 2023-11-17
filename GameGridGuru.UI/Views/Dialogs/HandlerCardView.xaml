@@ -6,7 +6,7 @@
              x:Class="GameGridGuru.UI.Views.Dialogs.HandlerCardView"
              HorizontalOptions="Center"
              VerticalOptions="Center">
-        <Grid>
+        <Grid HeightRequest="300" WidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -25,7 +25,10 @@
                 <Label Text="Cliente:" />
                 <Picker ItemsSource="{Binding Customers}"
                         SelectedItem="{Binding SelectedCustomer}" 
-                        WidthRequest="200" />
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedIndex="0"
+                        WidthRequest="200" 
+                        HeightRequest="30" />
             </StackLayout>
             
             <FlexLayout Grid.Row="2" JustifyContent="Center" AlignItems="Center">
@@ -34,8 +37,7 @@
             </FlexLayout>
             
             <Grid Grid.Row="3"
-                         IsVisible="{Binding Source={x:Reference ReservationCheckbox}, Path=IsChecked}"
-                         HeightRequest="300">
+                  IsVisible="{Binding Source={x:Reference ReservationCheckbox}, Path=IsChecked}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -46,19 +48,32 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <Picker Grid.Row="0" 
-                        Grid.Column="0" 
-                        Grid.ColumnSpan="2" 
-                        ItemsSource="{Binding Courts}"
-                        SelectedItem="{Binding SelectedCourt}" />
-                
-                <StackLayout Grid.Row="1" 
-                             Grid.Column="0" 
-                             Orientation="Horizontal">
-                    <Label Text="Início:" />
-                    <DatePicker Format="dd/MM/yyyy HH:mm:ss"
-                                Date="{Binding Start}"/>
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Label Text="Quadra:" />
+                    <Picker ItemsSource="{Binding Courts}"
+                            SelectedItem="{Binding SelectedCourt}" />
                 </StackLayout>
+                
+                
+                <FlexLayout Grid.Row="1" 
+                             Grid.Column="0" 
+                             JustifyContent="SpaceBetween">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Início:" />
+                        <DatePicker Format="dd/MM/yy"
+                                    Date="{Binding StartDate}"/>
+                        <TimePicker Format="HH:mm" 
+                                    Time="{Binding StartTime}"/>
+                    </StackLayout>
+                   
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Fim:" />
+                        <DatePicker Format="dd/MM/yy"
+                                    Date="{Binding EndDate}"/>
+                        <TimePicker Format="HH:mm" 
+                                    Time="{Binding EndTime}"/>
+                    </StackLayout>
+                </FlexLayout>
             </Grid>
             <StackLayout Grid.Row="4">
                 <Label Text="Valor: R$ "/>

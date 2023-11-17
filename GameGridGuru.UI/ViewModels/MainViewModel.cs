@@ -7,7 +7,6 @@ namespace GameGridGuru.UI.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
-    private readonly Timer _timer;
     private List<IContextViewModel> _menuItems;
     private IContextViewModel _selectedItem;
     private View _currentPage;
@@ -17,13 +16,13 @@ public class MainViewModel : BaseViewModel
     {
         _menuItems = new List<IContextViewModel>
         {
-            new CardViewModel(popupService, cardService),
+            new CardViewModel(popupService, cardService, customerService, courtService, productService),
             new CourtViewModel(popupService, courtService),
             new CustomerViewModel(popupService, customerService),
             new ProductViewModel(popupService, productService)
         };
 
-        _timer = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        _ = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     public List<IContextViewModel> MenuItems
@@ -62,11 +61,11 @@ public class MainViewModel : BaseViewModel
         get => _currentTime;
         set
         {
-            if (_currentTime != value)
-            {
-                _currentTime = value;
-                OnPropertyChanged(nameof(CurrentTime));
-            }
+            if (_currentTime == value) 
+                return;
+            
+            _currentTime = value;
+            OnPropertyChanged(nameof(CurrentTime));
         }
     }
     

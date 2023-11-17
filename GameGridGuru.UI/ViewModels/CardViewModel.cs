@@ -15,14 +15,20 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private Card _selectedCard;
     private bool _isCardSelected;
     
-    public CardViewModel(IPopupService popupService, ICardService cardService) : base(popupService)
+    public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, ICourtService courtService, IProductService productService) : base(popupService)
     {
         CardService = cardService;
-
+        CustomerService = customerService;
+        CourtService = courtService;
+        ProductService = productService;
+        
         LoadCardsAsync();
     }
     
     private ICardService CardService { get; }
+    private ICustomerService CustomerService { get; }
+    private ICourtService CourtService { get; }
+    private IProductService ProductService { get; }
     
     public string Title => "Comandas";
     
@@ -60,7 +66,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     [RelayCommand]
     private async Task AddCard()
     {
-        var context = new HandlerCardViewModel();
+        var context = new HandlerCardViewModel(await GetAllCustomer());
         var view = new HandlerCardView { BindingContext = context };
         var cardInfo = await PopupService!.ShowPopupAsync(view);
 
@@ -77,4 +83,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
             new Card() { Id = 01, Customer = new Customer() { Name = "Vitor" }, TotalValue = 27.5F }
         };
     }
+
+    private async Task<IEnumerable<Customer>> GetAllCustomer()
+        => await CustomerService.GetAllAsync();
 }
