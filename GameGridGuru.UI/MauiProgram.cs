@@ -1,12 +1,6 @@
 ﻿using CommunityToolkit.Maui;
-using GameGridGuru.Services.Abstractions.Services;
-using GameGridGuru.Services.Services;
 using GameGridGuru.Infraestructure;
-using GameGridGuru.Infraestructure.Abstractions.Repositories;
-using GameGridGuru.Infraestructure.Repositories;
-using GameGridGuru.UI.Abstractions.Services;
-using GameGridGuru.UI.Services;
-using GameGridGuru.UI.ViewModels;
+using GameGridGuru.UI.DependencyInjection;
 
 namespace GameGridGuru.UI;
 
@@ -23,13 +17,11 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainViewModel>();
-        builder.Services.AddSingleton<PostgresDbContext>();
-        builder.Services.AddTransient<IPopupService, PopupService>();
-        builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
-        builder.Services.AddTransient<IProductRepository, ProductRepository>();
-        builder.Services.AddTransient<ICustomerService, CustomerService>();
+        builder.Services.AddDbContext<PostgresDbContext>(ServiceLifetime.Transient);
+        
+        builder.Services.InjectUi();
+        builder.Services.InjectRepositories();
+        builder.Services.InjectApplicationServices();
         
         return builder.Build();
     }

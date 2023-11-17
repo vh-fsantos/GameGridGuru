@@ -60,7 +60,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
 
     private async Task LoadCustomersAsync()
     {
-        Customers = new ObservableCollection<Customer>(await CustomerService.GetCustomersAsync());
+        Customers = new ObservableCollection<Customer>(await CustomerService.GetAllAsync());
     }
     
     [RelayCommand]
@@ -73,7 +73,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
         if (customerInfo is not Customer customer) 
             return;
         
-        if (await CustomerService.AddCustomerAsync(customer))
+        if (await CustomerService.AddEntityAsync(customer))
             Customers.Add(customer);
     }
     
@@ -90,17 +90,17 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
         if (customerInfo is not Customer customer) 
             return;
         
-        if (await CustomerService.EditCustomerAsync(customer))
+        if (await CustomerService.EditEntityAsync(customer))
             await LoadCustomersAsync();
     }
 
     [RelayCommand]
-    private async Task RemoveCustomer()
+    private async Task DeleteCustomer()
     {
         if (SelectedCustomer == null || !await PopupService.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este cliente, tem certeza de que deseja continuar?")) 
             return;
 
-        if (await CustomerService.DeleteCustomerAsync(SelectedCustomer))
+        if (await CustomerService.DeleteEntityAsync(SelectedCustomer))
             await LoadCustomersAsync();
     }
 }

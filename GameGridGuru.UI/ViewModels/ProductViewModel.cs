@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using GameGridGuru.Domain.Models;
-using GameGridGuru.Infraestructure.Abstractions.Repositories;
+using GameGridGuru.Services.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
 using GameGridGuru.UI.ViewModels.HandlersViewModel;
@@ -9,24 +9,23 @@ using GameGridGuru.UI.Views.Dialogs;
 
 namespace GameGridGuru.UI.ViewModels;
 
-public class ProductViewModel : BaseViewModel, IContextViewModel
+public partial class ProductViewModel : BaseViewModel, IContextViewModel
 {
     private ObservableCollection<Product> _products;
     private Product _selectedProduct;
+    private bool _isProductSelected;
     
-    public ProductViewModel(IPopupService popupService, IProductRepository customerRepository)
+    public ProductViewModel(IPopupService popupService, IProductService productService)
     {
-        AddProductCommand = new Command(AddProduct);
-        ProductRepository = customerRepository;
+        ProductService = productService;
         PopupService = popupService;
         
         _ = LoadProductsAsync();
     }
     
-    private IProductRepository ProductRepository  { get; }
+    private IProductService ProductService  { get; }
     private IPopupService PopupService { get; }
     public string Title => "Produtos";
-    public ICommand AddProductCommand { get; set; }
 
     public ObservableCollection<Product> Products
     {
@@ -44,30 +43,41 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
         set
         {
             _selectedProduct = value;
-            _ = EditProduct();
+            IsProductSelected = value != null;
             OnPropertyChanged(nameof(SelectedProduct));
+        }
+    }
+    
+    public bool IsProductSelected
+    {
+        get => _isProductSelected;
+        set
+        {
+            _isProductSelected = value;
+            OnPropertyChanged(nameof(IsProductSelected));
         }
     }
 
     private async Task LoadProductsAsync()
     {
-        Products = new ObservableCollection<Product>(await ProductRepository.GetProductsAsync());
+        Products = new ObservableCollection<Product>(await ProductService.GetAllAsync());
     }
     
-    private async void AddProduct()
+    [RelayCommand]
+    private async Task AddProduct()
     {
         var context = new HandlerProductViewModel();
         var view = new HandlerProductView { BindingContext = context };
-        var customerInfo = await PopupService.ShowPopupAsync(view);
+        var productInfo = await PopupService.ShowPopupAsync(view);
 
-        if (customerInfo is not Product productInputModel) 
+        if (productInfo is not Product product) 
             return;
-
-        var product = new Product();
-        if (await ProductRepository.AddProductAsync(product))
+        
+        if (await ProductService.AddEntityAsync(product))
             Products.Add(product);
     }
     
+    [RelayCommand]
     private async Task EditProduct()
     {
         if (SelectedProduct == null) 
@@ -75,14 +85,22 @@ public class ProductViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerProductViewModel(SelectedProduct);
         var view = new HandlerProductView { BindingContext = context };
-        var customerInfo = await PopupService.ShowPopupAsync(view);
+        var productInfo = await PopupService.ShowPopupAsync(view);
 
-        if (customerInfo is not Product customerInputModel) 
+        if (productInfo is not Product product) 
             return;
         
-        if (await ProductRepository.EditProductAsync(SelectedProduct))
-        {
+        if (await ProductService.EditEntityAsync(product))
             await LoadProductsAsync();
-        }
+    }
+    
+    [RelayCommand]
+    private async Task DeleteProduct()
+    {
+        if (SelectedProduct == null || !await PopupService.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este produto, tem certeza de que deseja continuar?")) 
+            return;
+
+        if (await ProductService.DeleteEntityAsync(SelectedProduct))
+            await LoadProductsAsync();
     }
 }

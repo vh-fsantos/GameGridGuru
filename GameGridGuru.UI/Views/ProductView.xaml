@@ -4,27 +4,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GameGridGuru.UI.Views.ProductView"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid">
-    <Grid Padding="10">
+     <Grid Padding="10"
+          Background="#e8e4e4">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Text="Novo" Command="{Binding AddCustomerCommand}"/>
-        <dg:DataGrid Grid.Row="1" ItemsSource="{Binding Customers}" SelectionEnabled="True"
-                     SelectedItem="{Binding SelectedCustomer}" HeaderHeight="50" HeightRequest="500" Padding="10">
-            <dg:DataGrid.NoDataView>
-                <Label Text="Não há clientes cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
-            </dg:DataGrid.NoDataView>
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="Nome" PropertyName="Name" />
-                <dg:DataGridColumn Title="Telefone" PropertyName="PhoneNumber" />
-            </dg:DataGrid.Columns>
-            <dg:DataGrid.RowsBackgroundColorPalette>
-                <dg:PaletteCollection>
-                    <Color>#F2F2F2</Color>
-                    <Color>#FFFFFF</Color>
-                </dg:PaletteCollection>
-            </dg:DataGrid.RowsBackgroundColorPalette>
-        </dg:DataGrid>
+        
+        <FlexLayout Grid.Row="0" JustifyContent="SpaceBetween" Margin="10, 0, 10, 20">
+            <Button Text="Cadastrar Produto"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#00B346"
+                    TextColor="#fff"
+                    CornerRadius="10"
+                    Command="{Binding AddProductCommand}"/>
+        
+            <Button Text="Remover Produto"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#FF1919"
+                    TextColor="#FFF"
+                    CornerRadius="10"
+                    Command="{Binding DeleteProductCommand}"
+                    IsEnabled="{Binding IsProductSelected}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value=".5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </FlexLayout>
+
+        <Border Grid.Row="1"
+                Stroke="LightGray"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 10,10,10,10" VerticalOptions="Fill"
+                HorizontalOptions="FillAndExpand">
+            <dg:DataGrid  ItemsSource="{Binding Products}" 
+                          SelectionEnabled="True"
+                          SelectedItem="{Binding SelectedProduct}" 
+                          HeaderHeight="50"
+                          HeightRequest="500"
+                          BorderColor="LightGrey"
+                          BorderThickness="1">
+                
+                <dg:DataGrid.NoDataView>
+                    <Label Text="Não há produtos cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
+                </dg:DataGrid.NoDataView>
+                
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Nome" PropertyName="Name"/>
+                    <dg:DataGridColumn Title="Valor" PropertyName="Value" />
+                </dg:DataGrid.Columns>
+
+                <dg:DataGrid.RowsBackgroundColorPalette>
+                    <dg:PaletteCollection>
+                        <Color>#F2F2F2</Color>
+                        <Color>#FFFFFF</Color>
+                    </dg:PaletteCollection>
+                </dg:DataGrid.RowsBackgroundColorPalette>
+                
+                <dg:DataGrid.GestureRecognizers>
+                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Command="{Binding EditProductCommand}" />
+                    <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Command="{Binding EditProductCommand}" />
+                </dg:DataGrid.GestureRecognizers>
+            </dg:DataGrid>
+        </Border>
     </Grid>
 </ContentView>

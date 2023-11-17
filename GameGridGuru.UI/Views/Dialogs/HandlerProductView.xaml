@@ -24,7 +24,7 @@
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
                        Text="Nome do Produto"/>
-                <Entry Placeholder="Digite o nome do produto" Text="{Binding CustomerName}" />
+                <Entry Placeholder="Digite o nome do produto" Text="{Binding ProductName}" />
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Padding="0,10" 
                                  HorizontalOptions="Center" 
@@ -32,7 +32,7 @@
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
                        Text="Valor do Produto"/>
-                <Entry Placeholder="Digite o telefone do cliente" Text="{Binding CustomerPhoneNumber}" />
+                <Entry Placeholder="Digite o valor do produto" Text="{Binding ProductValue}" />
             </VerticalStackLayout>
             <HorizontalStackLayout Grid.Row="3" Padding="0,10" 
                                    HorizontalOptions="Center" 

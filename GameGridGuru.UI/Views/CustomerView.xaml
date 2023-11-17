@@ -26,7 +26,7 @@
                     BackgroundColor="#FF1919"
                     TextColor="#FFF"
                     CornerRadius="10"
-                    Command="{Binding RemoveCustomerCommand}"
+                    Command="{Binding DeleteCustomerCommand}"
                     IsEnabled="{Binding IsCustomerSelected}">
                 <Button.Style>
                     <Style TargetType="Button">

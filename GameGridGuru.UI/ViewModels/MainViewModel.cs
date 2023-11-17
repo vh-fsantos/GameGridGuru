@@ -12,12 +12,12 @@ public class MainViewModel : BaseViewModel
     private IContextViewModel _selectedItem;
     private View _currentPage;
 
-    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductRepository productRepository)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService)
     {
         _menuItems = new List<IContextViewModel>
         {
             new CustomerViewModel(popupService, customerService),
-            new ProductViewModel(popupService, productRepository)
+            new ProductViewModel(popupService, productService)
         };
     }
 

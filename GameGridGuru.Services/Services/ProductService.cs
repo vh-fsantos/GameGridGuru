@@ -4,7 +4,7 @@ using GameGridGuru.Services.Abstractions.Services;
 
 namespace GameGridGuru.Services.Services;
 
-public class CustomerService : BaseService<Customer>, ICustomerService
+public class ProductService : BaseService<Product>, IProductService
 {
-    public CustomerService(ICustomerRepository customerRepository) : base(customerRepository) { }
+    public ProductService(IProductRepository productRepository) : base(productRepository) { }
 }

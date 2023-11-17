@@ -1,3 +1,4 @@
+using System.Globalization;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.UI.Abstractions.ViewModels;
 
@@ -5,17 +6,21 @@ namespace GameGridGuru.UI.ViewModels.HandlersViewModel;
 
 public class HandlerProductViewModel : BaseViewModel, IHandlerViewModel
 {
+    private readonly CultureInfo _cultureInfo;
     private string _productName;
-    private float _productValue;
+    private string _productValue;
     private int _productId;
 
-    public HandlerProductViewModel() { }
+    public HandlerProductViewModel()
+    {
+        _cultureInfo = new CultureInfo("pt-BR");
+    }
     
-    public HandlerProductViewModel(Product product)
+    public HandlerProductViewModel(Product product) : this()
     {
         ProductId = product.Id;
         ProductName = product.Name;
-        ProductValue = product.Value;
+        ProductValue = product.Value.ToString(_cultureInfo);
     }
 
     public int ProductId
@@ -38,7 +43,7 @@ public class HandlerProductViewModel : BaseViewModel, IHandlerViewModel
         }
     }
 
-    public float ProductValue
+    public string ProductValue
     {
         get => _productValue;
         set
@@ -47,4 +52,26 @@ public class HandlerProductViewModel : BaseViewModel, IHandlerViewModel
             OnPropertyChanged(nameof(ProductValue));
         }
     }
+
+    public Product GetProduct()
+    {
+        try
+        {
+            if (!float.TryParse(ProductValue, _cultureInfo, out var value) || ProductValue.Contains('.'))
+                return null;
+            
+            return new Product
+            {
+                Id = ProductId,
+                Name = ProductName,
+                Value = value
+            };
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Exception trying to retrieve a product - {exception.Message}");
+            return null;
+        }
+    }
+        
 }

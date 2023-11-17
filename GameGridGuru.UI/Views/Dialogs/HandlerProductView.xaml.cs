@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using GameGridGuru.UI.ViewModels.HandlersViewModel;
 
 namespace GameGridGuru.UI.Views.Dialogs;
 
@@ -11,6 +12,9 @@ public partial class HandlerProductView : Popup
 
     private void Button_OnClicked(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var context = (HandlerProductViewModel) BindingContext;
+        var product = context.GetProduct();
+        if (product != null)
+            CloseAsync(product);
     }
 }

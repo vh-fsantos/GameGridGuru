@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using GameGridGuru.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,11 +70,31 @@ public abstract class BaseRepository<T> where T : EntityId
         }
     }
     
-    public async Task<IEnumerable<T>> GetAllAsync() 
-        => await GetDbSet().AsNoTracking().OrderBy(entity => entity.Id).ToListAsync();
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        try
+        {
+            return await GetDbSet().AsNoTracking().OrderBy(entity => entity.Id).ToListAsync();
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Get All {nameof(T)}  - {exception.Message}");
+            return Enumerable.Empty<T>();
+        }
+    }
 
     public async Task<T?> GetEntityById(int id)
-        => await GetDbSet().AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+    {
+        try
+        {
+            return await GetDbSet().AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Get Entity by Id {nameof(T)}  - {exception.Message}");
+            return null;
+        }
+    }
     
     protected DbSet<T> GetDbSet() 
         => _dbContext.Set<T>();
