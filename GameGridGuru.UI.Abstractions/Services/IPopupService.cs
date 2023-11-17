@@ -5,5 +5,6 @@ namespace GameGridGuru.UI.Abstractions.Services;
 public interface IPopupService
 {
     Task<object> ShowPopupAsync(Popup popup);
-    Task ClosePopup(Popup popup, object result);
+
+    Task<bool> ShowConfirmationDialog(string title, string message);
 }

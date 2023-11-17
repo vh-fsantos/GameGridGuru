@@ -21,6 +21,9 @@ public class CustomerService : ICustomerService
 
     public async Task<bool> EditCustomerAsync(Customer customer)
         => await _customerRepository.EditCustomerAsync(customer);
+    
+    public async Task<bool> DeleteCustomerAsync(Customer customer)
+        => await _customerRepository.DeleteCustomerAsync(customer);
 
     public async Task<Customer?> GetCustomerById(int id)
         => await _customerRepository.GetCustomerById(id);

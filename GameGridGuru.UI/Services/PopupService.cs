@@ -5,14 +5,11 @@ namespace GameGridGuru.UI.Services;
 
 public class PopupService : IPopupService
 {
-    public async Task<object> ShowPopupAsync(Popup popup)
-    {
-        var page = Application.Current?.MainPage ?? throw new NullReferenceException("Main page not found!");
-        return await page.ShowPopupAsync(popup);
-    }
+    private Page MainPage => Application.Current?.MainPage ?? throw new NullReferenceException("Main page not found!");
 
-    public async Task ClosePopup(Popup popup, object result)
-    {
-        await popup.CloseAsync(result);
-    }
+    public async Task<object> ShowPopupAsync(Popup popup) 
+        => await MainPage.ShowPopupAsync(popup);
+
+    public async Task<bool> ShowConfirmationDialog(string title, string message) 
+        => await MainPage.DisplayAlert(title, message, "Sim", "Não");
 }

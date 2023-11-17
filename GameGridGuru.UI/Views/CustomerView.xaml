@@ -13,14 +13,39 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <Button Grid.Row="0" 
-                Text="Cadastro de cliente"
-                HorizontalOptions="Start" 
-                BackgroundColor="#00B346"
-                TextColor="#fff"
-                CornerRadius="10"
-                Margin="0, 0, 0, 20"
-                Command="{Binding AddCustomerCommand}"/>
+        <FlexLayout Grid.Row="0" JustifyContent="SpaceBetween" Margin="10, 0, 10, 20">
+            <Button Text="Cadastrar cliente"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#00B346"
+                    TextColor="#fff"
+                    CornerRadius="10"
+                    Command="{Binding AddCustomerCommand}"/>
+        
+            <Button Text="Remover cliente"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#FF1919"
+                    TextColor="#FFF"
+                    CornerRadius="10"
+                    Command="{Binding RemoveCustomerCommand}"
+                    IsEnabled="{Binding IsCustomerSelected}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value=".5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </FlexLayout>
 
         <Border Grid.Row="1"
                 Stroke="LightGray"
@@ -52,8 +77,8 @@
                 </dg:DataGrid.RowsBackgroundColorPalette>
                 
                 <dg:DataGrid.GestureRecognizers>
-                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Clicked="ClickGestureRecognizer_OnClicked" />
-                    <!-- <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Tapped="TapGestureRecognizer_OnTapped" /> -->
+                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Command="{Binding EditCustomerCommand}" />
+                    <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Command="{Binding EditCustomerCommand}" />
                 </dg:DataGrid.GestureRecognizers>
             </dg:DataGrid>
         </Border>

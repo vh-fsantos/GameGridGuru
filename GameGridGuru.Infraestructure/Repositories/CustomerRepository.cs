@@ -23,7 +23,7 @@ public class CustomerRepository : ICustomerRepository
         }
         catch (Exception exception)
         {
-            Console.WriteLine($"Add Customer Async - {exception.Message}");
+            Console.WriteLine($"Add Customer - {exception.Message}");
             return false;
         }
         finally
@@ -42,7 +42,26 @@ public class CustomerRepository : ICustomerRepository
         }
         catch (Exception exception)
         {
-            Console.WriteLine($"Edit Customer Async - {exception.Message}");
+            Console.WriteLine($"Edit Customer - {exception.Message}");
+            return false;
+        }
+        finally
+        {
+            ClearChangeTracker();
+        }
+    }
+
+    public async Task<bool> DeleteCustomerAsync(Customer customer)
+    {
+        try
+        {
+            GetDbSet().Remove(customer);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Remove Customer - {exception.Message}");
             return false;
         }
         finally

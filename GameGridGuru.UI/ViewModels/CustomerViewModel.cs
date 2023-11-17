@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using GameGridGuru.Domain.Models;
 using GameGridGuru.Services.Abstractions.Services;
@@ -14,6 +13,7 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
 {
     private ObservableCollection<Customer> _customers;
     private Customer _selectedCustomer;
+    private bool _isCustomerSelected;
     
     public CustomerViewModel(IPopupService popupService, ICustomerService customerService)
     {
@@ -43,7 +43,18 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
         set
         {
             _selectedCustomer = value;
+            IsCustomerSelected = value != null;
             OnPropertyChanged(nameof(SelectedCustomer));
+        }
+    }
+
+    public bool IsCustomerSelected
+    {
+        get => _isCustomerSelected;
+        set
+        {
+            _isCustomerSelected = value;
+            OnPropertyChanged(nameof(IsCustomerSelected));
         }
     }
 
@@ -80,6 +91,16 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
             return;
         
         if (await CustomerService.EditCustomerAsync(customer))
+            await LoadCustomersAsync();
+    }
+
+    [RelayCommand]
+    private async Task RemoveCustomer()
+    {
+        if (SelectedCustomer == null || !await PopupService.ShowConfirmationDialog("Atenção", "Você irá remover permanentemente este cliente, tem certeza de que deseja continuar?")) 
+            return;
+
+        if (await CustomerService.DeleteCustomerAsync(SelectedCustomer))
             await LoadCustomersAsync();
     }
 }
