@@ -21,6 +21,7 @@ public static class InjectServices
         services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddTransient<ICourtRepository, CourtRepository>();
+        services.AddTransient<ICardRepository, CardRepository>();
     }
     
     public static void InjectApplicationServices(this IServiceCollection services)
@@ -29,5 +30,6 @@ public static class InjectServices
         services.AddTransient<ICustomerService, CustomerService>();
         services.AddTransient<IProductService, ProductService>();
         services.AddTransient<ICourtService, CourtService>();
+        services.AddTransient<ICardService, CardService>();
     }
 }

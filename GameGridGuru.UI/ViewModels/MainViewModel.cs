@@ -1,4 +1,3 @@
-using GameGridGuru.Infraestructure.Abstractions.Repositories;
 using GameGridGuru.Services.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
@@ -14,10 +13,11 @@ public class MainViewModel : BaseViewModel
     private View _currentPage;
     private string _currentTime;
 
-    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService, ICardService cardService)
     {
         _menuItems = new List<IContextViewModel>
         {
+            new CardViewModel(popupService, cardService),
             new CourtViewModel(popupService, courtService),
             new CustomerViewModel(popupService, customerService),
             new ProductViewModel(popupService, productService)
@@ -76,6 +76,9 @@ public class MainViewModel : BaseViewModel
         {
             case null:
                 return;
+            case CardViewModel:
+                CurrentPage = new CardView();
+                break;
             case CustomerViewModel:
                 CurrentPage = new CustomerView();
                 break;
@@ -89,7 +92,7 @@ public class MainViewModel : BaseViewModel
 
     private async void UpdateTime()
     {
-        await MainThread.InvokeOnMainThreadAsync(() =>
+        await Task.Run(() =>
         {
             CurrentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
         });

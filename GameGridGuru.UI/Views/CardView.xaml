@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameGridGuru.UI.Views.CardView">
+    
+    <Grid Background="#E8E4E4">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="75*" />
+        </Grid.ColumnDefinitions>
+        
+        <Button Grid.Column="0" Grid.Row="0"
+                Text="+"
+                HorizontalOptions="Fill" 
+                BackgroundColor="#00B346"
+                TextColor="#FFF"
+                CornerRadius="10"
+                Command="{Binding AddCardCommand}"/>
+        
+        <CollectionView Grid.Column="0" Grid.Row="1"
+                        Background="Transparent"
+                        ItemsSource="{Binding Cards}" 
+                        SelectedItem="{Binding SelectedCard}"
+                        SelectionMode="Single" 
+                        HeightRequest="300">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
+            </CollectionView.ItemsLayout>
+                
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="5" HeightRequest="100" WidthRequest="100">
+                        <Label Text="{Binding Id}" FontAttributes="Bold" />
+                        <Label Text="{Binding TotalValue}" FontAttributes="Bold" />
+                        <Label Text="{Binding Customer.Name}" FontAttributes="Bold" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            
+    </Grid>
+    
+</ContentView>
