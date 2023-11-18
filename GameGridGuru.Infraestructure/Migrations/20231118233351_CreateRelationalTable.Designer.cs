@@ -3,6 +3,7 @@ using System;
 using GameGridGuru.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameGridGuru.Infraestructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class SqLiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118233351_CreateRelationalTable")]
+    partial class CreateRelationalTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,22 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Cards", (string)null);
+                    b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("GameGridGuru.Domain.Models.CardProduct", b =>
+                {
+                    b.Property<int>("CardId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CardId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CardProduct");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Court", b =>
@@ -65,7 +83,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courts", (string)null);
+                    b.ToTable("Courts");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Customer", b =>
@@ -86,7 +104,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Invoice", b =>
@@ -107,7 +125,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("Invoices", (string)null);
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Payment", b =>
@@ -128,7 +146,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Product", b =>
@@ -139,9 +157,6 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CardId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -151,9 +166,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CardId");
-
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Reservation", b =>
@@ -177,7 +190,7 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.HasIndex("CourtId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Card", b =>
@@ -197,6 +210,25 @@ namespace GameGridGuru.Infraestructure.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Reservation");
+                });
+
+            modelBuilder.Entity("GameGridGuru.Domain.Models.CardProduct", b =>
+                {
+                    b.HasOne("GameGridGuru.Domain.Models.Card", "Card")
+                        .WithMany("Products")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameGridGuru.Domain.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Invoice", b =>
@@ -219,13 +251,6 @@ namespace GameGridGuru.Infraestructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("GameGridGuru.Domain.Models.Product", b =>
-                {
-                    b.HasOne("GameGridGuru.Domain.Models.Card", null)
-                        .WithMany("Products")
-                        .HasForeignKey("CardId");
                 });
 
             modelBuilder.Entity("GameGridGuru.Domain.Models.Reservation", b =>

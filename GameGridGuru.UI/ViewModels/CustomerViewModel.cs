@@ -67,11 +67,12 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerCustomerViewModel();
         var view = new HandlerCustomerView { BindingContext = context };
-        var customerInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (customerInfo is not Customer customer) 
-            return;
+        var result = await PopupService!.ShowPopupAsync(view);
         
+        if (result is null or false)
+            return;
+
+        var customer = context.GetCustomer();
         if (await CustomerService.AddEntityAsync(customer))
             Customers.Add(customer);
     }
@@ -84,11 +85,12 @@ public partial class CustomerViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerCustomerViewModel(SelectedCustomer);
         var view = new HandlerCustomerView { BindingContext = context };
-        var customerInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (customerInfo is not Customer customer) 
-            return;
+        var result = await PopupService!.ShowPopupAsync(view);
         
+        if (result is null or false)
+            return;
+
+        var customer = context.GetCustomer();
         if (await CustomerService.EditEntityAsync(customer))
             await LoadCustomersAsync();
     }

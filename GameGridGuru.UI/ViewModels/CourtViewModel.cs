@@ -67,11 +67,12 @@ public partial class CourtViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerCourtViewModel();
         var view = new HandlerCourtView { BindingContext = context };
-        var courtInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (courtInfo is not Court court) 
-            return;
+        var result = await PopupService!.ShowPopupAsync(view);
         
+        if (result is null or false)
+            return;
+
+        var court = context.GetCourt();
         if (await CourtService.AddEntityAsync(court))
             Courts.Add(court);
     }
@@ -84,11 +85,12 @@ public partial class CourtViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerCourtViewModel(SelectedCourt);
         var view = new HandlerCourtView { BindingContext = context };
-        var courtInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (courtInfo is not Court court) 
-            return;
+        var result = await PopupService!.ShowPopupAsync(view);
         
+        if (result is null or false)
+            return;
+
+        var court = context.GetCourt();
         if (await CourtService.EditEntityAsync(court))
             await LoadCourtsAsync();
     }

@@ -1,5 +1,4 @@
 using CommunityToolkit.Maui.Views;
-using GameGridGuru.UI.ViewModels.HandlersViewModel;
 
 namespace GameGridGuru.UI.Views.Dialogs;
 
@@ -12,8 +11,7 @@ public partial class HandlerCourtView : Popup
 
     private void ButtonConfirm_OnClicked(object sender, EventArgs e)
     {
-        var context = (HandlerCourtViewModel) BindingContext;
-        CloseAsync(context.GetCourt());
+        CloseAsync(true);
     }
     
     private void ButtonCancel_OnClicked(object sender, EventArgs e)

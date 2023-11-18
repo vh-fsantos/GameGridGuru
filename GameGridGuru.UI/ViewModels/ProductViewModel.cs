@@ -67,10 +67,12 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerProductViewModel();
         var view = new HandlerProductView { BindingContext = context };
-        var productInfo = await PopupService!.ShowPopupAsync(view);
+        var result = await PopupService!.ShowPopupAsync(view);
 
-        if (productInfo is not Product product) 
+        if (result is null or false)
             return;
+            
+        var product = context.GetProduct();
         
         if (await ProductService.AddEntityAsync(product))
             Products.Add(product);
@@ -84,11 +86,12 @@ public partial class ProductViewModel : BaseViewModel, IContextViewModel
         
         var context = new HandlerProductViewModel(SelectedProduct);
         var view = new HandlerProductView { BindingContext = context };
-        var productInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (productInfo is not Product product) 
-            return;
+        var result = await PopupService!.ShowPopupAsync(view);
         
+        if (result is null or false)
+            return;
+            
+        var product = context.GetProduct();
         if (await ProductService.EditEntityAsync(product))
             await LoadProductsAsync();
     }

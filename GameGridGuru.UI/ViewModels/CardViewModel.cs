@@ -30,7 +30,6 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private ICustomerService CustomerService { get; }
     private ICourtService CourtService { get; }
     private IProductService ProductService { get; }
-    
     private IReservationService ReservationService { get; }
     
     public string Title => "Comandas";
@@ -71,25 +70,27 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     {
         var context = new HandlerCardViewModel(await GetAllCustomer(), await GetAllCourts());
         var view = new HandlerCardView { BindingContext = context };
-        var cardInfo = await PopupService!.ShowPopupAsync(view);
-
-        if (cardInfo is not EntityId[] card)
+        var result = await PopupService!.ShowPopupAsync(view);
+        
+        if (result is null or false)
             return;
 
-        var reservation = (Reservation) card[1];
-        reservation = await ReservationService.AddReservationAsync(reservation);
-        
-        
+        var card = context.GetCard();
+        var reservation = context.GetReservation();
+
+        if (reservation != null)
+        {
+            reservation = await ReservationService.AddReservationAsync(reservation) ?? throw new Exception("Error obtaining reservation");
+            card.ReservationId = reservation.Id;
+        }
+
+        if (await CardService.AddEntityAsync(card));
+            await LoadCardsAsync();
     }
 
-    private void LoadCardsAsync()
+    private async Task LoadCardsAsync()
     {
-        Cards = new ObservableCollection<Card>()
-        {
-            new Card() { Id = 01, Customer = new Customer() { Name = "Vitor" }, TotalValue = 27.5F },
-            new Card() { Id = 01, Customer = new Customer() { Name = "Vitor" }, TotalValue = 27.5F },
-            new Card() { Id = 01, Customer = new Customer() { Name = "Vitor" }, TotalValue = 27.5F }
-        };
+        Cards = new ObservableCollection<Card>(await CardService.GetAllCardsAsync());
     }
 
     private async Task<IEnumerable<Customer>> GetAllCustomer()

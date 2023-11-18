@@ -6,5 +6,13 @@ namespace GameGridGuru.Services.Services;
 
 public class CardService : BaseService<Card>, ICardService
 {
-    public CardService(ICardRepository baseRepository) : base(baseRepository) { }
+    private readonly ICardRepository _cardRepository;
+
+    public CardService(ICardRepository baseRepository) : base(baseRepository)
+    {
+        _cardRepository = baseRepository;
+    }
+
+    public async Task<IEnumerable<Card>> GetAllCardsAsync()
+        => await _cardRepository.GetAllCardsAsync();
 }

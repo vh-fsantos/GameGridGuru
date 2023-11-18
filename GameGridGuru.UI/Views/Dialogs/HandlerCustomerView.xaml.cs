@@ -12,8 +12,7 @@ public partial class HandlerCustomerView : Popup
 
     private void ButtonConfirm_OnClicked(object sender, EventArgs e)
     {
-        var context = (HandlerCustomerViewModel) BindingContext;
-        CloseAsync(context.GetCustomer());
+        CloseAsync(true);
     }
     
     private void ButtonCancel_OnClicked(object sender, EventArgs e)
