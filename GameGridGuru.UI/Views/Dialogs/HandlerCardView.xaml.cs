@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Views;
+using GameGridGuru.Domain.Models;
+using GameGridGuru.UI.ViewModels.HandlersViewModel;
 
 namespace GameGridGuru.UI.Views.Dialogs;
 
@@ -9,8 +11,21 @@ public partial class HandlerCardView : Popup
         InitializeComponent();
     }
 
-    private void Button_OnClicked(object sender, EventArgs e)
+    private void ButtonConfirm_OnClicked(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var context = (HandlerCardViewModel) BindingContext;
+            CloseAsync(new EntityId[] { context.GetCard(), context.GetReservation() });
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Erro closing Card Dialog - {exception.Message}");
+        }
+    }
+    
+    private void ButtonCancel_OnClicked(object sender, EventArgs e)
+    {
+        CloseAsync();
     }
 }

@@ -2,8 +2,8 @@
 
 <mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
-             x:Class="GameGridGuru.UI.Views.Dialogs.HandlerProductView">
+             x:Class="GameGridGuru.UI.Views.Dialogs.HandlerCourtView"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui">
     <VerticalStackLayout Padding="30" BackgroundColor="Black">
         <Grid>
             <Grid.RowDefinitions>
@@ -12,38 +12,43 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" 
-                   Padding="0,10"
-                   HorizontalTextAlignment="Center" 
-                   VerticalTextAlignment="Center"
-                   Text="Informações de Produto" 
-                   FontSize="24"/>
+            
+            <StackLayout Grid.Row="0" 
+                         HorizontalOptions="Fill" 
+                         BackgroundColor="DarkGray">
+                <Label Padding="0,10"
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center"
+                       Text="Cadastrar Quadra" 
+                       FontSize="24" /> 
+            </StackLayout>
+            
             <VerticalStackLayout Grid.Row="1" Padding="0,10" 
                                  HorizontalOptions="Center" 
                                  VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
-                       Text="Nome do Produto"/>
-                <Entry Placeholder="Digite o nome do produto" Text="{Binding ProductName}" />
+                       Text="Nome da Quadra"/>
+                <Entry Placeholder="Digite o nome da quadra" Text="{Binding CourtName}" />
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Padding="0,10" 
                                  HorizontalOptions="Center" 
                                  VerticalOptions="Center">
                 <Label HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
-                       Text="Valor do Produto"/>
-                <Entry Placeholder="Digite o valor do produto" Text="{Binding ProductValue}" />
+                       Text="Valor da Quadra"/>
+                <Entry Placeholder="Digite o valor/hora da quadra" Text="{Binding CourtHourValue}" />
             </VerticalStackLayout>
             <FlexLayout Grid.Row="3" Margin="0,10" 
-                                   JustifyContent="SpaceBetween"
-                                   AlignItems="Center">
+                        JustifyContent="SpaceBetween"
+                        AlignItems="Center">
                 <Button Text="Cancelar"
                         HorizontalOptions="Start" 
                         BackgroundColor="#FF1919"
                         TextColor="#FFF"
                         CornerRadius="10"
                         Clicked="ButtonCancel_OnClicked"/>
-                <Button Text="Cadastrar Produto"
+                <Button Text="Cadastrar Quadra"
                         HorizontalOptions="Start" 
                         BackgroundColor="#00B346"
                         TextColor="#FFF"
