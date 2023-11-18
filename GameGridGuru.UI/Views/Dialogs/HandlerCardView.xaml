@@ -62,17 +62,19 @@
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Início:" />
                         <DatePicker Format="dd/MM/yy"
-                                    Date="{Binding ReservationStartDateTime}"/>
+                                    Date="{Binding ReservationStartDate}"
+                                    MinimumDate="{Binding LimitDate}"/>
                         <TimePicker Format="HH:mm" 
-                                    Time="{Binding ReservationStartDateTime.TimeOfDay}"/>
+                                    Time="{Binding ReservationStartTime}"/>
                     </StackLayout>
                    
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Fim:" />
                         <DatePicker Format="dd/MM/yy"
-                                    Date="{Binding ReservationEndDateTime}"/>
+                                    Date="{Binding ReservationEndDate}"
+                                    MinimumDate="{Binding ReservationStartDate}"/>
                         <TimePicker Format="HH:mm" 
-                                    Time="{Binding ReservationEndDateTime.TimeOfDay}"/>
+                                    Time="{Binding ReservationEndTime}"/>
                     </StackLayout>
                 </FlexLayout>
             </Grid>

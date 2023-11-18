@@ -12,11 +12,11 @@ public class MainViewModel : BaseViewModel
     private View _currentPage;
     private string _currentTime;
 
-    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService, ICardService cardService)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService, ICardService cardService, IReservationService reservationService)
     {
         _menuItems = new List<IContextViewModel>
         {
-            new CardViewModel(popupService, cardService, customerService, courtService, productService),
+            new CardViewModel(popupService, cardService, customerService, courtService, productService, reservationService),
             new CourtViewModel(popupService, courtService),
             new CustomerViewModel(popupService, customerService),
             new ProductViewModel(popupService, productService)

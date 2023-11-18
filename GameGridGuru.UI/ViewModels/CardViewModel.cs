@@ -15,12 +15,13 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private Card _selectedCard;
     private bool _isCardSelected;
     
-    public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, ICourtService courtService, IProductService productService) : base(popupService)
+    public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, ICourtService courtService, IProductService productService, IReservationService reservationService) : base(popupService)
     {
         CardService = cardService;
         CustomerService = customerService;
         CourtService = courtService;
         ProductService = productService;
+        ReservationService = reservationService;
         
         LoadCardsAsync();
     }
@@ -29,6 +30,8 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private ICustomerService CustomerService { get; }
     private ICourtService CourtService { get; }
     private IProductService ProductService { get; }
+    
+    private IReservationService ReservationService { get; }
     
     public string Title => "Comandas";
     
@@ -72,6 +75,9 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
 
         if (cardInfo is not EntityId[] card)
             return;
+
+        var reservation = (Reservation) card[1];
+        reservation = await ReservationService.AddReservationAsync(reservation);
         
         
     }

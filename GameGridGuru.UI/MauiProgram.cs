@@ -17,6 +17,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        
         builder.Services.AddDbContext<PostgresDbContext>(ServiceLifetime.Transient);
         
         builder.Services.InjectUi();

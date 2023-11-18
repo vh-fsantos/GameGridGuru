@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using GameGridGuru.Domain.Models;
+using GameGridGuru.UI.Abstractions.ExtensionMethods;
 using GameGridGuru.UI.Abstractions.ViewModels;
 
 namespace GameGridGuru.UI.ViewModels.HandlersViewModel;
@@ -8,8 +9,11 @@ public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
 {
     private ObservableCollection<Customer> _customers;
     private ObservableCollection<Court> _courts;
-    private DateTime _reservationStartDatetime;
-    private DateTime _reservationEndDatetime;
+    private DateTime _limitDate;
+    private DateTime _reservationStartDate;
+    private DateTime _reservationEndDate;
+    private TimeSpan _reservationStartTime;
+    private TimeSpan _reservationEndTime;
     private Customer _selectedCustomer;
     private Court _selectedCourt;
     private float _courtValue;
@@ -19,6 +23,7 @@ public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
     {
         Customers = new ObservableCollection<Customer>(customers);
         Courts = new ObservableCollection<Court>(courts);
+        LimitDate = DateTime.Today;
     }
 
     public ObservableCollection<Customer> Customers
@@ -62,25 +67,58 @@ public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
         }
     }
 
-    public DateTime ReservationStartDateTime
+    public DateTime LimitDate
     {
-        get => _reservationStartDatetime;
+        get => _limitDate;
         set
         {
-            _reservationStartDatetime = value;
+            _limitDate = value;
             UpdateCourtValue();
-            OnPropertyChanged(nameof(ReservationStartDateTime));
+            OnPropertyChanged(nameof(LimitDate));
         }
     }
     
-    public DateTime ReservationEndDateTime
+    public DateTime ReservationStartDate
     {
-        get => _reservationEndDatetime;
+        get => _reservationStartDate;
         set
         {
-            _reservationEndDatetime = value;
+            _reservationStartDate = value;
             UpdateCourtValue();
-            OnPropertyChanged(nameof(ReservationEndDateTime));
+            OnPropertyChanged(nameof(ReservationStartDate));
+        }
+    }
+    
+    public DateTime ReservationEndDate
+    {
+        get => _reservationEndDate;
+        set
+        {
+            _reservationEndDate = value;
+            UpdateCourtValue();
+            OnPropertyChanged(nameof(ReservationEndDate));
+        }
+    }
+
+    public TimeSpan ReservationStartTime
+    {
+        get => _reservationStartTime;
+        set
+        {
+            _reservationStartTime = value;
+            UpdateCourtValue();
+            OnPropertyChanged(nameof(ReservationStartTime));
+        }
+    }
+    
+    public TimeSpan ReservationEndTime
+    {
+        get => _reservationEndTime;
+        set
+        {
+            _reservationEndTime = value;
+            UpdateCourtValue();
+            OnPropertyChanged(nameof(ReservationEndTime));
         }
     }
 
@@ -120,8 +158,8 @@ public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
 
         return new Reservation
         {
-            Start = ReservationStartDateTime,
-            End = ReservationEndDateTime,
+            Start = ReservationStartDate.IncrementWithTime(ReservationStartTime),
+            End = ReservationEndDate.IncrementWithTime(ReservationEndTime),
             CourtId = SelectedCourt.Id
         };
     }
@@ -130,7 +168,10 @@ public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
     {
         if (SelectedCourt == null)
             return;
+
+        var endDate = ReservationEndDate.IncrementWithTime(ReservationEndTime);
+        var startDate = ReservationStartDate.IncrementWithTime(ReservationStartTime);
         
-        CourtValue = (float) ReservationEndDateTime.Subtract(ReservationStartDateTime).TotalHours * SelectedCourt.HourValue;
+        CourtValue = (float) endDate.Subtract(startDate).TotalHours * SelectedCourt.HourValue;
     }
 }

@@ -18,7 +18,7 @@ public abstract class BaseRepository<T> where T : EntityId
         try
         {
             await GetDbSet().AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            await SaveChangesAsync();
             return true;
         }
         catch (Exception exception)
@@ -37,7 +37,7 @@ public abstract class BaseRepository<T> where T : EntityId
         try
         {
             GetDbSet().Update(entity);
-            await _dbContext.SaveChangesAsync();
+            await SaveChangesAsync();
             return true;
         }
         catch (Exception exception)
@@ -56,7 +56,7 @@ public abstract class BaseRepository<T> where T : EntityId
         try
         {
             GetDbSet().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            await SaveChangesAsync();
             return true;
         }
         catch (Exception exception)
@@ -98,8 +98,13 @@ public abstract class BaseRepository<T> where T : EntityId
     
     protected DbSet<T> GetDbSet() 
         => _dbContext.Set<T>();
+
+    protected async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
     
-    private void ClearChangeTracker()
+    protected void ClearChangeTracker()
     {
         _dbContext.ChangeTracker.Clear();
     }
