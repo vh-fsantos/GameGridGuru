@@ -78,6 +78,9 @@ public class MainViewModel : BaseViewModel
             case CardViewModel:
                 CurrentPage = new CardView();
                 break;
+            case CourtViewModel:
+                CurrentPage = new CourtView();
+                break;
             case CustomerViewModel:
                 CurrentPage = new CustomerView();
                 break;

@@ -2,7 +2,7 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GameGridGuru.UI.Views.CustomerView"
+             x:Class="GameGridGuru.UI.Views.CourtView"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid">
     
     <Grid Padding="10"
@@ -14,14 +14,14 @@
         </Grid.RowDefinitions>
         
         <FlexLayout Grid.Row="0" JustifyContent="SpaceBetween" Margin="10, 0, 10, 20">
-            <Button Text="Cadastrar cliente"
+            <Button Text="Cadastrar quadra"
                     HorizontalOptions="Start" 
                     BackgroundColor="#00B346"
                     TextColor="#fff"
                     CornerRadius="10"
-                    Command="{Binding AddCustomerCommand}"/>
+                    Command="{Binding AddCourtCommand}"/>
         
-            <Button Text="Remover cliente"
+            <Button Text="Remover quadra"
                     HorizontalOptions="Start" 
                     BackgroundColor="#FF1919"
                     TextColor="#FFF"
@@ -52,21 +52,21 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 10,10,10,10" VerticalOptions="Fill"
                 HorizontalOptions="FillAndExpand">
-            <dg:DataGrid  ItemsSource="{Binding Customers}" 
+            <dg:DataGrid  ItemsSource="{Binding Courts}" 
                           SelectionEnabled="True"
-                          SelectedItem="{Binding SelectedCustomer}" 
+                          SelectedItem="{Binding SelectedCourt}" 
                           HeaderHeight="50"
                           HeightRequest="500"
                           BorderColor="LightGrey"
                           BorderThickness="1">
                 
                 <dg:DataGrid.NoDataView>
-                    <Label Text="Não há clientes cadastrados!" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Text="Não há quadras cadastradas!" HorizontalOptions="Center" VerticalOptions="Center" />
                 </dg:DataGrid.NoDataView>
                 
                 <dg:DataGrid.Columns>
                     <dg:DataGridColumn Title="Nome" PropertyName="Name"/>
-                    <dg:DataGridColumn Title="Telefone" PropertyName="PhoneNumber" />
+                    <dg:DataGridColumn Title="Valor Hora" PropertyName="HourValue" />
                 </dg:DataGrid.Columns>
 
                 <dg:DataGrid.RowsBackgroundColorPalette>
@@ -77,10 +77,11 @@
                 </dg:DataGrid.RowsBackgroundColorPalette>
                 
                 <dg:DataGrid.GestureRecognizers>
-                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Command="{Binding EditCustomerCommand}" />
-                    <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Command="{Binding EditCustomerCommand}" />
+                    <ClickGestureRecognizer Buttons="Primary" NumberOfClicksRequired="2" Command="{Binding EditCourtCommand}" />
+                    <TapGestureRecognizer Buttons="Primary" NumberOfTapsRequired="2" Command="{Binding EditCourtCommand}" />
                 </dg:DataGrid.GestureRecognizers>
             </dg:DataGrid>
         </Border>
     </Grid>
+    
 </ContentView>
