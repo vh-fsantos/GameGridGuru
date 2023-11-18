@@ -66,12 +66,14 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     [RelayCommand]
     private async Task AddCard()
     {
-        var context = new HandlerCardViewModel(await GetAllCustomer());
+        var context = new HandlerCardViewModel(await GetAllCustomer(), await GetAllCourts());
         var view = new HandlerCardView { BindingContext = context };
         var cardInfo = await PopupService!.ShowPopupAsync(view);
 
-        if (cardInfo is not Card card)
+        if (cardInfo is not EntityId[] card)
             return;
+        
+        
     }
 
     private void LoadCardsAsync()
@@ -86,4 +88,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
 
     private async Task<IEnumerable<Customer>> GetAllCustomer()
         => await CustomerService.GetAllAsync();
+    
+    private async Task<IEnumerable<Court>> GetAllCourts()
+        => await CourtService.GetAllAsync();
 }

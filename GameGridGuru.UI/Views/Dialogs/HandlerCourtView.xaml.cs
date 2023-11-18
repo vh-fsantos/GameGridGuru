@@ -10,9 +10,14 @@ public partial class HandlerCourtView : Popup
         InitializeComponent();
     }
 
-    private void Button_OnClicked(object sender, EventArgs e)
+    private void ButtonConfirm_OnClicked(object sender, EventArgs e)
     {
         var context = (HandlerCourtViewModel) BindingContext;
         CloseAsync(context.GetCourt());
+    }
+    
+    private void ButtonCancel_OnClicked(object sender, EventArgs e)
+    {
+        CloseAsync();
     }
 }

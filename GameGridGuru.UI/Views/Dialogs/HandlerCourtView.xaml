@@ -39,11 +39,22 @@
                        Text="Valor da Quadra"/>
                 <Entry Placeholder="Digite o valor/hora da quadra" Text="{Binding CourtHourValue}" />
             </VerticalStackLayout>
-            <HorizontalStackLayout Grid.Row="3" Padding="0,10" 
-                                   HorizontalOptions="Center" 
-                                   VerticalOptions="Center">
-                <Button Text="Confirmar" Clicked="Button_OnClicked" />
-            </HorizontalStackLayout>
+            <FlexLayout Grid.Row="3" Margin="0,10" 
+                        JustifyContent="SpaceBetween"
+                        AlignItems="Center">
+                <Button Text="Cancelar"
+                        HorizontalOptions="Start" 
+                        BackgroundColor="#FF1919"
+                        TextColor="#FFF"
+                        CornerRadius="10"
+                        Clicked="ButtonCancel_OnClicked"/>
+                <Button Text="Cadastrar Quadra"
+                        HorizontalOptions="Start" 
+                        BackgroundColor="#00B346"
+                        TextColor="#FFF"
+                        CornerRadius="10"
+                        Clicked="ButtonConfirm_OnClicked"/>
+            </FlexLayout>
         </Grid>
     </VerticalStackLayout>
 </mct:Popup>

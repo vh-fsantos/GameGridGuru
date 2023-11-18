@@ -10,11 +10,16 @@ public partial class HandlerProductView : Popup
         InitializeComponent();
     }
 
-    private void Button_OnClicked(object sender, EventArgs e)
+    private void ButtonConfirm_OnClicked(object sender, EventArgs e)
     {
         var context = (HandlerProductViewModel) BindingContext;
         var product = context.GetProduct();
         if (product != null)
             CloseAsync(product);
+    }
+
+    private void ButtonCancel_OnClicked(object sender, EventArgs e)
+    {
+        CloseAsync();
     }
 }
