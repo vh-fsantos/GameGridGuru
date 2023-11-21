@@ -41,9 +41,8 @@
             </Label.FormattedText>
         </Label>
         
-        <FlexLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10" 
-                    JustifyContent="SpaceBetween"
-                    AlignItems="Center">
+        <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10" 
+                   Orientation="Horizontal">
             <Button Text="Cancelar"
                     HorizontalOptions="Start" 
                     BackgroundColor="#FF1919"
@@ -56,6 +55,6 @@
                     TextColor="#FFF"
                     CornerRadius="10"
                     Clicked="ButtonConfirm_OnClicked"/>
-        </FlexLayout>
+        </StackLayout>
     </Grid>
 </mct:Popup>

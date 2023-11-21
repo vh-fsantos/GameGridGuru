@@ -32,10 +32,10 @@
                         HeightRequest="30" />
             </StackLayout>
             
-            <FlexLayout Grid.Row="2" JustifyContent="Center" AlignItems="Center">
+            <StackLayout Grid.Row="2" Orientation="Horizontal">
                 <CheckBox x:Name="ReservationCheckbox" IsChecked="{Binding HasReservation}" />
                 <Label Text="Reserva"/>
-            </FlexLayout>
+            </StackLayout>
             
             <Grid Grid.Row="3"
                   IsVisible="{Binding Source={x:Reference ReservationCheckbox}, Path=IsChecked}">
@@ -56,9 +56,9 @@
                 </StackLayout>
                 
                 
-                <FlexLayout Grid.Row="1" 
+                <StackLayout Grid.Row="1" 
                              Grid.Column="0" 
-                             JustifyContent="SpaceBetween">
+                             Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Início:" />
                         <DatePicker Format="dd/MM/yy"
@@ -76,15 +76,14 @@
                         <TimePicker Format="HH:mm" 
                                     Time="{Binding ReservationEndTime}"/>
                     </StackLayout>
-                </FlexLayout>
+                </StackLayout>
             </Grid>
             <StackLayout Grid.Row="4" Orientation="Horizontal">
                 <Label Text="Valor: R$ "/>
                 <Label Text="{Binding CourtValue}"/>
             </StackLayout>
-            <FlexLayout Grid.Row="5" Margin="0,10" 
-                        JustifyContent="SpaceBetween"
-                        AlignItems="Center">
+            <StackLayout Grid.Row="5" Margin="0,10" 
+                        Orientation="Horizontal">
                 <Button Text="Cancelar"
                         HorizontalOptions="Start" 
                         BackgroundColor="#FF1919"
@@ -97,6 +96,6 @@
                         TextColor="#FFF"
                         CornerRadius="10"
                         Clicked="ButtonConfirm_OnClicked"/>
-            </FlexLayout>
+            </StackLayout>
         </Grid>
 </mct:Popup>

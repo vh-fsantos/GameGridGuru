@@ -36,9 +36,8 @@
                        Text="Telefone do Cliente"/>
                 <Entry Placeholder="Digite o telefone do cliente" Text="{Binding CustomerPhoneNumber}" />
             </VerticalStackLayout>
-            <FlexLayout Grid.Row="3" Margin="0,10" 
-                        JustifyContent="SpaceBetween"
-                        AlignItems="Center">
+            <StackLayout Grid.Row="3" Margin="0,10" 
+                        Orientation="Horizontal">
                 <Button Text="Cancelar"
                         HorizontalOptions="Start" 
                         BackgroundColor="#FF1919"
@@ -51,7 +50,7 @@
                         TextColor="#FFF"
                         CornerRadius="10"
                         Clicked="ButtonConfirm_OnClicked"/>
-            </FlexLayout>
+            </StackLayout>
         </Grid>
     </VerticalStackLayout>
 </mct:Popup>
