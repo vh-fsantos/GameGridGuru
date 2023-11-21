@@ -31,5 +31,5 @@ public class PostgresDbContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseNpgsql("Host=localhost:5432;Username=postgres;Password=EU141200;Database=GameGridGuru");
+        => options.UseNpgsql("Host=localhost:5432;Username=postgres;Password=dudu2022;Database=GameGridGuru");
 }
