@@ -17,13 +17,16 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private bool _isCardSelected;
     private View _currentCardPage; 
     
-    public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, ICourtService courtService, IProductService productService, IReservationService reservationService) : base(popupService)
+    public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, 
+        ICourtService courtService, IProductService productService, IReservationService reservationService,
+        ICardProductService cardProductService) : base(popupService)
     {
         CardService = cardService;
         CustomerService = customerService;
         CourtService = courtService;
         ProductService = productService;
         ReservationService = reservationService;
+        CardProductService = cardProductService;
         
         _ = LoadCardsAsync();
     }
@@ -33,6 +36,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private ICourtService CourtService { get; }
     private IProductService ProductService { get; }
     private IReservationService ReservationService { get; }
+    private ICardProductService CardProductService { get; }
     
     public string Title => "Comandas";
     
@@ -113,6 +117,27 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
 
         var product = context.GetProduct();
         product.CardId = SelectedCard.Id;
+
+        if (await CardProductService.AddEntityAsync(product))
+        {
+            await LoadCardsAsync();
+            SetCurrentCardPage(Cards.First(card => card.Id == SelectedCard.Id));
+        }
+    }
+
+    [RelayCommand]
+    private async Task FinishCard()
+    {
+        if (SelectedCard == null)
+            return;
+
+        var result = await PopupService!.ShowConfirmationDialog("Finalizando Comanda", "Você está prestes a finalizar essa comanda. Confirma que recebeu o pagamento?");
+
+        if (!result) return;
+        
+        SelectedCard.IsClosed = true;
+        if (await CardService.EditEntityAsync(SelectedCard)) 
+            await LoadCardsAsync();
     }
 
     private async Task LoadCardsAsync()

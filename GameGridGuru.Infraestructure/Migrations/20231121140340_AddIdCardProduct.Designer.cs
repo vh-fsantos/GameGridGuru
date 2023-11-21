@@ -3,6 +3,7 @@ using System;
 using GameGridGuru.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameGridGuru.Infraestructure.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    partial class PostgresDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121140340_AddIdCardProduct")]
+    partial class AddIdCardProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +35,6 @@ namespace GameGridGuru.Infraestructure.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("IsClosed")
-                        .HasColumnType("boolean");
 
                     b.Property<int?>("ReservationId")
                         .HasColumnType("integer");

@@ -23,6 +23,7 @@ public static class InjectServices
         services.AddTransient<ICourtRepository, CourtRepository>();
         services.AddTransient<ICardRepository, CardRepository>();
         services.AddTransient<IReservationRepository, ReservationRepository>();
+        services.AddTransient<ICardProductRepository, CardProductRepository>();
     }
     
     public static void InjectApplicationServices(this IServiceCollection services)
@@ -33,5 +34,6 @@ public static class InjectServices
         services.AddTransient<ICourtService, CourtService>();
         services.AddTransient<ICardService, CardService>();
         services.AddTransient<IReservationService, ReservationService>();
+        services.AddTransient<ICardProductService, CardProductService>();
     }
 }

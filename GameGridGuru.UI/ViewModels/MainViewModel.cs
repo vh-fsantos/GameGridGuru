@@ -1,6 +1,7 @@
 using GameGridGuru.Services.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
+using GameGridGuru.UI.ViewModels.ContextViewModels;
 using GameGridGuru.UI.Views;
 
 namespace GameGridGuru.UI.ViewModels;
@@ -13,14 +14,16 @@ public class MainViewModel : BaseViewModel
     private View _currentPage;
     private string _currentTime;
 
-    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, ICourtService courtService, ICardService cardService, IReservationService reservationService)
+    public MainViewModel(IPopupService popupService, ICustomerService customerService, IProductService productService, 
+        ICourtService courtService, ICardService cardService, IReservationService reservationService,
+        ICardProductService cardProductService)
     {
         _menuItems = new List<IContextViewModel>
         {
-            new ContextViewModels.CardViewModel(popupService, cardService, customerService, courtService, productService, reservationService),
-            new ContextViewModels.CourtViewModel(popupService, courtService),
-            new ContextViewModels.CustomerViewModel(popupService, customerService),
-            new ContextViewModels.ProductViewModel(popupService, productService)
+            new CardViewModel(popupService, cardService, customerService, courtService, productService, reservationService, cardProductService),
+            new CourtViewModel(popupService, courtService),
+            new CustomerViewModel(popupService, customerService),
+            new ProductViewModel(popupService, productService)
         };
 
         _timer = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));

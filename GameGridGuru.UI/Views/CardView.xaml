@@ -5,7 +5,6 @@
              xmlns:converters="clr-namespace:GameGridGuru.UI.Converters"
              x:Class="GameGridGuru.UI.Views.CardView">
     <ContentView.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <converters:SelectedItemBooleanConverter x:Key="SelectedItemBooleanConverter" />
     </ContentView.Resources>
     
@@ -30,7 +29,8 @@
                 CornerRadius="10"
                 Command="{Binding AddCardCommand}"/>
         
-        <CollectionView Grid.Column="0" Grid.Row="1"
+        <CollectionView x:Name="CollectionView"
+                        Grid.Column="0" Grid.Row="1"
                         Background="Transparent"
                         ItemsSource="{Binding Cards}" 
                         SelectedItem="{Binding SelectedCard}"
@@ -43,11 +43,32 @@
                 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Margin="5" HeightRequest="100" WidthRequest="100">
-                        <Label Text="{Binding Id}" FontAttributes="Bold" />
-                        <Label Text="{Binding TotalValue}" FontAttributes="Bold" />
-                        <Label Text="{Binding Customer.Name}" FontAttributes="Bold" />
-                    </StackLayout>
+                    <Frame Margin="5" HeightRequest="100" WidthRequest="100" CornerRadius="10" BorderColor="#8F8F8F" BackgroundColor="#B3B3B3">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference CollectionView}, Path=SelectedItem}" Value="{Binding}">
+                                <Setter Property="BackgroundColor" Value="#757575" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <StackLayout>
+                            <Label Text="{Binding Id}" FontAttributes="Bold" />
+                            <Ellipse WidthRequest="10" HeightRequest="10">
+                                <Ellipse.Triggers>
+                                    <DataTrigger TargetType="Ellipse" Binding="{Binding IsClosed}" Value="True">
+                                        <Setter Property="Fill">
+                                            <SolidColorBrush Color="#14AE5C" />
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Ellipse" Binding="{Binding IsClosed}" Value="False">
+                                        <Setter Property="Fill">
+                                            <SolidColorBrush Color="#F24822" />
+                                        </Setter>
+                                    </DataTrigger>
+                                </Ellipse.Triggers>
+                            </Ellipse>
+                            <Label Text="{Binding TotalValue}" FontAttributes="Bold" />
+                            <Label Text="{Binding Customer.Name}" FontAttributes="Bold" />
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -15,7 +15,7 @@
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
         
-        <ListView Background="Purple"
+        <ListView Background="#9747FF"
                   Grid.Row="1"
                   Grid.RowSpan="2"
                   Grid.Column="0"
@@ -24,17 +24,19 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="20">
-                            <Label Text="{Binding Title}"
+                        <Grid>
+                            <Label Padding="5, 10"
+                                   Text="{Binding Title}"
                                    FontAttributes="Bold"
-                                    FontSize="Large" />
+                                   FontSize="Large" 
+                                   TextColor="White"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         
-        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTime}" TextColor="#000"  HeightRequest="20" BackgroundColor="LightGray"/>
+        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTime}" TextColor="#000"  HeightRequest="20" BackgroundColor="#B3B3B3"/>
         
         <ContentView Grid.Row="2" Grid.Column="1" BackgroundColor="Grey" Content="{Binding CurrentPage}"/>
     </Grid>

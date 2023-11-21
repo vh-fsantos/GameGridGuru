@@ -6,7 +6,6 @@
              x:Class="GameGridGuru.UI.Views.SelectedCardView">
     <ContentView.Resources>
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </ContentView.Resources>
     
     <Grid>
@@ -23,7 +22,7 @@
                         Background="Transparent"
                         ItemsSource="{Binding Reservations}" 
                         SelectionMode="Single" 
-                        HeightRequest="300"
+                        HeightRequest="50"
                         Margin="5, 0"
                         IsVisible="{Binding HasReservation}">
             <CollectionView.ItemTemplate>
@@ -60,9 +59,21 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout Margin="5" HeightRequest="35">
-                        <Label Text="{Binding ProductId}" FontAttributes="Bold" />
-                    </HorizontalStackLayout> 
+                    <FlexLayout Margin="5" HeightRequest="35" AlignItems="Center" JustifyContent="SpaceBetween" BackgroundColor="DarkGray">
+                        <Label Text="{Binding Product.Name}" FontAttributes="Bold" Margin="5,0,0,0"/>
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Quantity}" FontAttributes="Bold" />
+                            <Label Text=" x " FontAttributes="Bold" />
+                            <Label FontAttributes="Bold" Margin="0,0,5,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="R$ " />
+                                        <Span Text="{Binding Product.Value}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </HorizontalStackLayout> 
+                    </FlexLayout> 
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

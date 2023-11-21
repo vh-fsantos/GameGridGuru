@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameGridGuru.Domain.Models;
 
-public class CardProduct
+public class CardProduct : EntityId
 {
     [ForeignKey("Card_Product_Fk1")]
     public int CardId { get; set; }
