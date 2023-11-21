@@ -5,15 +5,17 @@ using GameGridGuru.Services.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.Services;
 using GameGridGuru.UI.Abstractions.ViewModels;
 using GameGridGuru.UI.ViewModels.HandlersViewModel;
+using GameGridGuru.UI.Views;
 using GameGridGuru.UI.Views.Dialogs;
 
-namespace GameGridGuru.UI.ViewModels;
+namespace GameGridGuru.UI.ViewModels.ContextViewModels;
 
 public partial class CardViewModel : BaseViewModel, IContextViewModel
 {
     private ObservableCollection<Card> _cards;
     private Card _selectedCard;
     private bool _isCardSelected;
+    private View _currentCardPage; 
     
     public CardViewModel(IPopupService popupService, ICardService cardService, ICustomerService customerService, ICourtService courtService, IProductService productService, IReservationService reservationService) : base(popupService)
     {
@@ -23,7 +25,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
         ProductService = productService;
         ReservationService = reservationService;
         
-        LoadCardsAsync();
+        _ = LoadCardsAsync();
     }
     
     private ICardService CardService { get; }
@@ -33,6 +35,16 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     private IReservationService ReservationService { get; }
     
     public string Title => "Comandas";
+    
+    public View CurrentCardPage
+    {
+        get => _currentCardPage;
+        set
+        {
+            _currentCardPage = value;
+            OnPropertyChanged(nameof(CurrentCardPage));
+        }
+    }
     
     public ObservableCollection<Card> Cards
     {
@@ -51,6 +63,7 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
         {
             _selectedCard = value;
             IsCardSelected = value != null;
+            SetCurrentCardPage(value);
             OnPropertyChanged(nameof(SelectedCard));
         }
     }
@@ -88,6 +101,20 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
             await LoadCardsAsync();
     }
 
+    [RelayCommand]
+    private async Task AddProduct()
+    {
+        var context = new HandlerCardProductViewModel(await GetAllProducts());
+        var view = new HandlerCardProductView { BindingContext = context };
+        var result = await PopupService!.ShowPopupAsync(view);
+
+        if (result is null or false)
+            return;
+
+        var product = context.GetProduct();
+        product.CardId = SelectedCard.Id;
+    }
+
     private async Task LoadCardsAsync()
     {
         Cards = new ObservableCollection<Card>(await CardService.GetAllCardsAsync());
@@ -98,4 +125,13 @@ public partial class CardViewModel : BaseViewModel, IContextViewModel
     
     private async Task<IEnumerable<Court>> GetAllCourts()
         => await CourtService.GetAllAsync();
+    
+    private async Task<IEnumerable<Product>> GetAllProducts()
+        => await ProductService.GetAllAsync();
+
+    private void SetCurrentCardPage(Card card)
+    {
+        var view = new SelectedCardView { BindingContext = new SelectedCardViewModel(card) };
+        CurrentCardPage = view;
+    }
 }

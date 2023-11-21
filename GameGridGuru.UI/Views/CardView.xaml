@@ -2,13 +2,19 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:GameGridGuru.UI.Converters"
              x:Class="GameGridGuru.UI.Views.CardView">
+    <ContentView.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <converters:SelectedItemBooleanConverter x:Key="SelectedItemBooleanConverter" />
+    </ContentView.Resources>
     
     <Grid Background="#E8E4E4">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -28,8 +34,9 @@
                         Background="Transparent"
                         ItemsSource="{Binding Cards}" 
                         SelectedItem="{Binding SelectedCard}"
+                        VerticalOptions="Start"
                         SelectionMode="Single" 
-                        HeightRequest="300">
+                        MinimumHeightRequest="100">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2" />
             </CollectionView.ItemsLayout>
@@ -44,7 +51,82 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-            
+           
+        <ContentView Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" BackgroundColor="Grey" Content="{Binding CurrentCardPage}"/>
+        <HorizontalStackLayout Grid.Row="2" Grid.Column="1">
+            <Button Text="Reserva de Quadra"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#0D99FF"
+                    TextColor="#FFF"
+                    CornerRadius="10"
+                    Command="{Binding AddReservationCommand}"
+                    IsEnabled="{Binding SelectedCard, Converter={StaticResource SelectedItemBooleanConverter}, ConverterParameter=true}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value=".5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Text="Lançar Item"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#C5FBFF"
+                    TextColor="#000"
+                    CornerRadius="10"
+                    Command="{Binding AddProductCommand}"
+                    IsEnabled="{Binding SelectedCard, Converter={StaticResource SelectedItemBooleanConverter}}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value=".5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Text="Finalizar Comanda"
+                    HorizontalOptions="Start" 
+                    BackgroundColor="#14AE5C"
+                    TextColor="#FFF"
+                    CornerRadius="10"
+                    Command="{Binding FinishCardCommand}"
+                    IsEnabled="{Binding SelectedCard, Converter={StaticResource SelectedItemBooleanConverter}}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value=".5" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </HorizontalStackLayout>
     </Grid>
     
 </ContentView>

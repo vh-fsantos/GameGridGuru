@@ -5,7 +5,7 @@ using GameGridGuru.UI.Abstractions.ViewModels;
 
 namespace GameGridGuru.UI.ViewModels.HandlersViewModel;
 
-public class HandlerCardViewModel: BaseViewModel, IHandlerViewModel
+public class HandlerCardViewModel : BaseViewModel, IHandlerViewModel
 {
     private ObservableCollection<Customer> _customers;
     private ObservableCollection<Court> _courts;

@@ -7,7 +7,7 @@ using GameGridGuru.UI.Abstractions.ViewModels;
 using GameGridGuru.UI.ViewModels.HandlersViewModel;
 using GameGridGuru.UI.Views.Dialogs;
 
-namespace GameGridGuru.UI.ViewModels;
+namespace GameGridGuru.UI.ViewModels.ContextViewModels;
 
 public partial class ProductViewModel : BaseViewModel, IContextViewModel
 {

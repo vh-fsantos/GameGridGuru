@@ -7,6 +7,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -14,10 +15,8 @@
             <ColumnDefinition Width="70*"/>
         </Grid.ColumnDefinitions>
         
-        <ListView MinimumHeightRequest="1080"
-                  MaximumHeightRequest="1080"
-                    Background="Purple"
-                  Grid.Row="2"
+        <ListView Background="Purple"
+                  Grid.Row="1"
                   Grid.RowSpan="2"
                   Grid.Column="0"
                   ItemsSource="{Binding MenuItems}"
@@ -28,18 +27,15 @@
                         <Grid Padding="20">
                             <Label Text="{Binding Title}"
                                    FontAttributes="Bold"
-                                    FontSize="Large"
-                                   />
+                                    FontSize="Large" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         
-        <StackLayout HorizontalOptions="Center"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="LightGray" Margin="0,0,0,0" MaximumWidthRequest="1920" MinimumWidthRequest="1920">
-            <Label Text="{Binding CurrentTime}" TextColor="#000" />
-        </StackLayout>
+        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTime}" TextColor="#000"  HeightRequest="20" BackgroundColor="LightGray"/>
         
-        <ContentView Grid.Row="1" Grid.Column="1" BackgroundColor="Grey" Content="{Binding CurrentPage}"/>
+        <ContentView Grid.Row="2" Grid.Column="1" BackgroundColor="Grey" Content="{Binding CurrentPage}"/>
     </Grid>
 </ContentPage>

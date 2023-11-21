@@ -15,7 +15,8 @@ public class CardRepository : BaseRepository<Card>, ICardRepository
             return await GetDbSet().AsNoTracking()
                 .Include(card => card.Customer)
                 .Include(card => card.Reservation)
-                .OrderBy(card => card.Id).ToListAsync();
+                .Include(card => card.Reservation.Court)
+                .OrderByDescending(card => card.Id).ToListAsync();
         }
         catch (Exception exception)
         {

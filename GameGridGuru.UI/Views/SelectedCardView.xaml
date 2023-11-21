@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:GameGridGuru.UI.Converters"
+             x:Class="GameGridGuru.UI.Views.SelectedCardView">
+    <ContentView.Resources>
+        <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentView.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Text="{Binding Title}"/>
+        
+        <CollectionView Grid.Row="1"
+                        Background="Transparent"
+                        ItemsSource="{Binding Reservations}" 
+                        SelectionMode="Single" 
+                        HeightRequest="300"
+                        Margin="5, 0"
+                        IsVisible="{Binding HasReservation}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <FlexLayout Margin="5" HeightRequest="35" AlignItems="Center" JustifyContent="SpaceBetween" BackgroundColor="DarkGray">
+                        <Label Text="{Binding Court.Name}" FontAttributes="Bold" Margin="5,0,0,0"/>
+                        <Label Text="{Binding Start.Date, Converter={StaticResource DateTimeConverter} }" FontAttributes="Bold" />
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Start.TimeOfDay}" FontAttributes="Bold" />
+                            <Label Text=" - " FontAttributes="Bold" />
+                            <Label Text="{Binding End.TimeOfDay}" FontAttributes="Bold" />
+                        </HorizontalStackLayout> 
+                        <Label FontAttributes="Bold" Margin="0,0,5,0">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="R$ " />
+                                    <Span Text="{Binding Court.HourValue}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </FlexLayout> 
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <CollectionView Grid.Row="2"
+                        Background="Transparent"
+                        ItemsSource="{Binding CardProducts}" 
+                        SelectionMode="Single" 
+                        HeightRequest="300"
+                        Margin="5, 0">
+            <CollectionView.EmptyView>
+                <Label Text="Não há produtos cadastrados" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Margin="5" HeightRequest="35">
+                        <Label Text="{Binding ProductId}" FontAttributes="Bold" />
+                    </HorizontalStackLayout> 
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+    </Grid>
+    
+</ContentView>

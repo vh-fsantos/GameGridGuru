@@ -7,6 +7,7 @@ namespace GameGridGuru.UI.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
+    private readonly Timer _timer;
     private List<IContextViewModel> _menuItems;
     private IContextViewModel _selectedItem;
     private View _currentPage;
@@ -16,13 +17,13 @@ public class MainViewModel : BaseViewModel
     {
         _menuItems = new List<IContextViewModel>
         {
-            new CardViewModel(popupService, cardService, customerService, courtService, productService, reservationService),
-            new CourtViewModel(popupService, courtService),
-            new CustomerViewModel(popupService, customerService),
-            new ProductViewModel(popupService, productService)
+            new ContextViewModels.CardViewModel(popupService, cardService, customerService, courtService, productService, reservationService),
+            new ContextViewModels.CourtViewModel(popupService, courtService),
+            new ContextViewModels.CustomerViewModel(popupService, customerService),
+            new ContextViewModels.ProductViewModel(popupService, productService)
         };
 
-        _ = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        _timer = new Timer(_ => UpdateTime(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     public List<IContextViewModel> MenuItems
@@ -75,16 +76,16 @@ public class MainViewModel : BaseViewModel
         {
             case null:
                 return;
-            case CardViewModel:
+            case ContextViewModels.CardViewModel:
                 CurrentPage = new CardView();
                 break;
-            case CourtViewModel:
+            case ContextViewModels.CourtViewModel:
                 CurrentPage = new CourtView();
                 break;
-            case CustomerViewModel:
+            case ContextViewModels.CustomerViewModel:
                 CurrentPage = new CustomerView();
                 break;
-            case ProductViewModel:
+            case ContextViewModels.ProductViewModel:
                 CurrentPage = new ProductView();
                 break;
         }
