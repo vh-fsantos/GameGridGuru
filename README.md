@@ -8,9 +8,9 @@ GameGridGuru is a .NET MAUI application that allows you to mange your sports cou
 - Make sure that you have installed the .NET Core 7.0 and the dotnet-ef tool
 - Clone the repo
 - Open your terminal
-- On the root folder of the repo type `cd src/ReservationRestaurant.Data`
+- On the root folder of the repo type `cd GameGridGuru.Infraestructure`
 - Run the migrations with `dotnet ef database update`
-- Navigate to main project `cd ../ReservationRestaurant`
+- Navigate to main project `cd ../GameGridGuru.Infraestructure`
 - Clean the solution with `dotnet clean`
 - Build the solution with `dotnet build`
 - And run with `dotnet run`
