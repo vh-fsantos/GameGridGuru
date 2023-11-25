@@ -52,7 +52,8 @@
                 <StackLayout Grid.Row="0" Grid.Column="0">
                     <Label Text="Quadra:" />
                     <Picker ItemsSource="{Binding Courts}"
-                            SelectedItem="{Binding SelectedCourt}" />
+                            SelectedItem="{Binding SelectedCourt}" 
+                            ItemDisplayBinding="{Binding Name}" />
                 </StackLayout>
                 
                 
