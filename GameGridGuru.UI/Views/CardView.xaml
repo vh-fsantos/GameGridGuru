@@ -65,7 +65,14 @@
                                     </DataTrigger>
                                 </Ellipse.Triggers>
                             </Ellipse>
-                            <Label Text="{Binding TotalValue}" FontAttributes="Bold" />
+                            <Label FontAttributes="Bold" >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Valor: R$ "/>
+                                        <Span Text="{Binding TotalValue}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                             <Label Text="{Binding Customer.Name}" FontAttributes="Bold" />
                         </StackLayout>
                     </Frame>

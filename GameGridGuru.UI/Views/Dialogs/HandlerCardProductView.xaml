@@ -28,6 +28,7 @@
         <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Products}"
                 SelectedItem="{Binding SelectedProduct}" 
                 ItemDisplayBinding="{Binding Name}"
+                SelectedIndex="1"
                 WidthRequest="200" 
                 HeightRequest="30" />
         <Label Grid.Row="2" Grid.Column="0" Text="Quantidade:" />
@@ -49,7 +50,7 @@
                     TextColor="#FFF"
                     CornerRadius="10"
                     Clicked="ButtonCancel_OnClicked"/>
-            <Button Text="Criar Comanda"
+            <Button Text="Lançar Item"
                     HorizontalOptions="Start" 
                     BackgroundColor="#00B346"
                     TextColor="#FFF"

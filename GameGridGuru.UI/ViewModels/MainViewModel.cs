@@ -78,17 +78,18 @@ public class MainViewModel : BaseViewModel
         switch (viewModel)
         {
             case null:
+                CurrentPage = new DefaultView();
                 return;
-            case ContextViewModels.CardViewModel:
+            case CardViewModel:
                 CurrentPage = new CardView();
                 break;
-            case ContextViewModels.CourtViewModel:
+            case CourtViewModel:
                 CurrentPage = new CourtView();
                 break;
-            case ContextViewModels.CustomerViewModel:
+            case CustomerViewModel:
                 CurrentPage = new CustomerView();
                 break;
-            case ContextViewModels.ProductViewModel:
+            case ProductViewModel:
                 CurrentPage = new ProductView();
                 break;
         }

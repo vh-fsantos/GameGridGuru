@@ -32,6 +32,7 @@ public class HandlerCardProductViewModel : BaseViewModel, IHandlerViewModel
         set
         {
             _selectedProduct = value;
+            ProductValue = _selectedProduct.Value * ProductQuantity;
             OnPropertyChanged(nameof(SelectedProduct));
         }
     }
@@ -42,6 +43,8 @@ public class HandlerCardProductViewModel : BaseViewModel, IHandlerViewModel
         set
         {
             _productQuantity = value;
+            if (SelectedProduct != null)
+                ProductValue = SelectedProduct.Value * _productQuantity;
             OnPropertyChanged(nameof(ProductQuantity));
         }
     }
